@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="nochange_unit_price.list">
+      <field name="name">nochange_unit_price list</field>
+      <field name="model">nochange_unit_price.nochange_unit_price</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="nochange_unit_price.action_window">
+      <field name="name">nochange_unit_price window</field>
+      <field name="res_model">nochange_unit_price.nochange_unit_price</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="nochange_unit_price.action_server">
+      <field name="name">nochange_unit_price server</field>
+      <field name="model_id" ref="model_nochange_unit_price_nochange_unit_price"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="nochange_unit_price" id="nochange_unit_price.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="nochange_unit_price.menu_1" parent="nochange_unit_price.menu_root"/>
+    <menuitem name="Menu 2" id="nochange_unit_price.menu_2" parent="nochange_unit_price.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="nochange_unit_price.menu_1_list" parent="nochange_unit_price.menu_1"
+              action="nochange_unit_price.action_window"/>
+    <menuitem name="Server to list" id="nochange_unit_price" parent="nochange_unit_price.menu_2"
+              action="nochange_unit_price.action_server"/>
+-->
+  </data>
+</odoo>

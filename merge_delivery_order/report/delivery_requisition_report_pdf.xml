@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="delivery_order_merge_requisition_template">
+        <t t-call="web.html_container">            
+            <t t-call="web.external_layout">
+                <t t-foreach="product_requisition" t-as="o">
+                    <div class="page">
+                        <div style="page-break-after:always;">
+                            <div class="text-center">
+                                <h3>Requisition Products</h3>
+                            </div>
+                            <br/>
+                            <table class="table table-sm table-bordered">
+                                <thead class="thead-light">
+                                    <tr class="text-center">
+                                        <th style="width:  20%">
+                                            <strong>Date</strong>
+                                        </th>
+                                        <th style="width:  40%">
+                                            <strong>Product</strong>
+                                        </th>
+                                        <th style="width:  10%">
+                                            <strong>Total Qty</strong>
+                                        </th>
+                                        <th style="width:  30%">
+                                            <strong>Location</strong>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>                                    
+                                    <tr class="text-center">
+                                        <td>
+                                            <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="o['name']"/>
+                                        </td>
+                                        <td >
+                                            <span t-esc="o['product_qty']"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="o['location']"/>
+                                        </td>
+                                    </tr>                                    
+                                </tbody>
+                            </table>
+                            <br/>
+                            <h5>Details :</h5>
+                            <table class="table table-sm table-bordered">
+                                <thead class="thead-dark">
+                                    <tr class="text-center">
+                                        <th style="width:  25%">
+                                            <strong>Order No.</strong>
+                                        </th>
+                                        <th style="width:  25%">
+                                            <strong>Customer Ref.</strong>
+                                        </th>
+                                        <th style="width:  25%">
+                                            <strong>Qty</strong>
+                                        </th>
+                                        <th style="width:  25%">
+                                            <strong>Unit</strong>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>   
+                                    <t t-foreach="o['order_detail']" t-as="detail">                                 
+                                        <tr class="text-center">
+                                            <td>
+                                                <span t-esc="detail['order_no']"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="detail['order_ref']"/>
+                                            </td>
+                                            <td >
+                                                <span t-esc="detail['order_qty']"/>
+                                            </td>
+                                            <td>
+                                                <span t-esc="detail['unit']"/>
+                                            </td>
+                                        </tr> 
+                                    </t>                                    
+                                </tbody>
+                            </table>
+                                                                                  
+                        </div>                        
+                    </div>
+                </t>
+            </t>                  
+        </t>
+    </template>   
+</odoo>

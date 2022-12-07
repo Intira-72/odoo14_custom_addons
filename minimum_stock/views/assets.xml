@@ -1,0 +1,7 @@
+<odoo>
+ <template id="button_render_js" inherit_id="web.assets_backend">
+       <xpath expr="." position="inside">
+           <script src="minimum_stock/static/src/js/action_minimum_check.js" type="text/javascript"/>
+       </xpath>
+   </template>
+</odoo>

@@ -1,0 +1,55 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record model="ir.ui.view" id="product_normal_form_view">
+        <field name="name">product_normal_form_view</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='inventory']" position="inside">
+                <group name="dimensions" string="Dimensions" colspan="2">
+                    <field name="dimensional_uom_id" />
+                    <field name="product_length" string="Length" />
+                    <field name="product_height" string="Height" />
+                    <field name="product_width" string="Width" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="product_template_only_form_view">
+        <field name="name">product_template_form_view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='inventory']" position="inside">
+                <group
+                    string="Dimensions"
+                    name="dimensions"
+                    colspan="2"
+                    attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
+                >
+                    <field name="dimensional_uom_id" optional="show" />
+                    <field name="product_length" string="Length" optional="show" />
+                    <field name="product_height" string="Height" optional="show" />
+                    <field name="product_width" string="Width" optional="show" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="dimension_product_template_tree_view">
+        <field name="name">dimension_product_template_tree_view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree//field[@name='standard_price']" position="after">
+                <field name="weight" string="Weight" optional="show" />
+                <field name="product_width" string="Wigth(cm.)" optional="show" />
+                <field name="product_height" string="Height(cm.)" optional="show" />
+                <field name="product_length" string="Length(cm.)" optional="show" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="stock.product_template_action_product" model="ir.actions.act_window">
+        <field name="view_mode">tree,kanban,form</field>
+    </record>
+</odoo>

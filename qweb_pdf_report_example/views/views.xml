@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="qweb_pdf_report_example.list">
+      <field name="name">qweb_pdf_report_example list</field>
+      <field name="model">qweb_pdf_report_example.qweb_pdf_report_example</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="qweb_pdf_report_example.action_window">
+      <field name="name">qweb_pdf_report_example window</field>
+      <field name="res_model">qweb_pdf_report_example.qweb_pdf_report_example</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="qweb_pdf_report_example.action_server">
+      <field name="name">qweb_pdf_report_example server</field>
+      <field name="model_id" ref="model_qweb_pdf_report_example_qweb_pdf_report_example"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="qweb_pdf_report_example" id="qweb_pdf_report_example.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="qweb_pdf_report_example.menu_1" parent="qweb_pdf_report_example.menu_root"/>
+    <menuitem name="Menu 2" id="qweb_pdf_report_example.menu_2" parent="qweb_pdf_report_example.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="qweb_pdf_report_example.menu_1_list" parent="qweb_pdf_report_example.menu_1"
+              action="qweb_pdf_report_example.action_window"/>
+    <menuitem name="Server to list" id="qweb_pdf_report_example" parent="qweb_pdf_report_example.menu_2"
+              action="qweb_pdf_report_example.action_server"/>
+-->
+  </data>
+</odoo>

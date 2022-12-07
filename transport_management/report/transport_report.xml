@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="delivery_note_report_template">
+        <link href="https://fonts.googleapis.com/css?family=Kanit+Regular" rel="stylesheet"/>
+        <t t-call="web.html_container">            
+            <t t-call="web.external_layout">                
+                <div class="page">
+                    <div>
+                        <div class="text-center">
+                            <h2>DELIVERY NOTE</h2>
+                        </div>
+                        <br/>
+                        <div>
+                            <h5>Delivery Note Number : <span t-esc="name"/></h5>                      
+                        </div>
+                        <table class="table table-sm table-bordered">
+                            <thead class="thead-dark">
+                                <tr class="text-center">
+                                    <th style="width:  20%">
+                                        <strong>Shipping Date</strong>
+                                    </th>
+                                    <th style="width:  30%">
+                                        <strong>Delivery Car</strong>
+                                    </th>
+                                    <th style="width:  25%">
+                                        <strong>FROM</strong>
+                                    </th>
+                                    <th style="width:  25%">
+                                        <strong>TO</strong>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>                                    
+                                <tr class="text-center" >
+                                    <td>
+                                        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="vechicle_id"/>
+                                    </td>
+                                    <td >
+                                        <span t-esc="from_loc"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="to_loc"/>
+                                    </td>
+                                </tr>                                    
+                            </tbody>
+                        </table> 
+                        <br/>
+                        <h5><span t-esc="operation_type"/> :</h5>
+                        <table class="table table-sm table-bordered">
+                            <thead class="thead-dark">
+                                <tr class="text-center">
+                                    <th style="width:  10%">
+                                        <strong>No.</strong>
+                                    </th>
+                                    <th style="width:  20%">
+                                        <strong>Create Date</strong>
+                                    </th>
+                                    <th style="width:  20%">
+                                        <strong>Reference</strong>
+                                    </th>
+                                    <th style="width:  50%">
+                                        <strong>Source Document</strong>
+                                    </th>                                    
+                                </tr>
+                            </thead>
+                            <tbody>  
+                                <t t-set="line_index" t-value="0" />
+                                <t t-foreach="order_lists" t-as="order"> 
+                                    <t t-set="line_index" t-value="line_index + 1" />                                
+                                    <tr class="text-center">
+                                        <td>
+                                            <span t-esc="line_index"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="order['create_date']"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="order['reference']"/>
+                                        </td>                                        
+                                        <td>
+                                            <span t-esc="order['origin']"/>
+                                        </td>
+                                    </tr> 
+                                </t>                                    
+                            </tbody>
+                        </table> 
+                        <div style="width: 96%; position:absolute;top:950px; page-break-inside: avoid;">
+                            <table class="table table-sm table-bordered">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th style="width: 30%;">
+                                            ISSUED BY
+                                        </th>
+                                        <th style="width: 30%;">
+                                            DRIVER
+                                        </th>
+                                        <th style="width: 30%;">
+                                            CHECKER
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>                                    
+                                    <tr style="height: 60px">
+                                        <td style="vertical-align: middle; text-align: center;"><span style=" font-family: 'Raleway', cursive; font-size: 1.2em;" t-esc="u_id"/></td>
+                                        <td style="vertical-align: middle; text-align: center;"><span style=" font-family: 'Raleway', cursive; font-size: 1.2em;" t-esc="employee_id"/></td>
+                                        <td></td>
+                                    </tr>                                    
+                                </tbody>
+                            </table>   
+                        </div>                                                                                                                                                     
+                    </div>                                      
+                </div>                
+            </t>                  
+        </t>
+    </template>   
+</odoo>

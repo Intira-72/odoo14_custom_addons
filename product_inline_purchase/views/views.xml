@@ -1,0 +1,76 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="product_inline_purchase.list">
+      <field name="name">product_inline_purchase list</field>
+      <field name="model">purchase.order</field>
+      <field name="inherit_id" ref="purchase.purchase_order_view_tree"/>
+      <field name="arch" type="xml">
+        <xpath expr="//tree/field[@name='name']" position="after">
+          <field name="product_id" optional="show"/>
+        </xpath>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="product_inline_purchase.list2">
+      <field name="name">product_inline_purchase list2</field>
+      <field name="model">purchase.order</field>
+      <field name="inherit_id" ref="purchase.purchase_order_kpis_tree"/>
+      <field name="arch" type="xml">
+        <xpath expr="//tree" position="replace">
+          <tree>
+            <field name="priority" optional="show" widget="priority" nolabel="1"/>
+            <field name="message_unread" invisible="1"/>
+            <field name="name" string="Reference" readonly="1" decoration-bf="1"/>
+            <field name="partner_ref" optional="hide"/>
+            <field name="product_id" optional="show"/>
+            <field name="date_approve" invisible="context.get('quotation_only', False)" optional="show"/>
+            <field name="partner_id" readonly="1"/>
+            <field name="company_id" readonly="1" options="{'no_create': True}" groups="base.group_multi_company"
+                   optional="show"/>
+            <field name="date_planned" invisible="context.get('quotation_only', False)" optional="show"/>
+            <field name="user_id" optional="show" widget="many2one_avatar_user"/>
+            <field name="date_order"
+                   attrs="{'invisible': ['|', '|', ('state', '=', 'purchase'), ('state', '=', 'done'), ('state', '=', 'cancel')]}"
+                   invisible="not context.get('quotation_only', False)" widget="remaining_days" optional="show"/>
+            <field name="activity_ids" widget="list_activity" optional="show"/>
+            <field name="origin" optional="show"/>
+            <field name="amount_untaxed" sum="Total Untaxed amount" string="Untaxed" widget="monetary" optional="hide"/>
+            <field name="amount_total" sum="Total amount" widget="monetary" optional="show" decoration-bf="1"/>
+            <field name="currency_id" invisible="1"/>
+            <field name="state" optional="show" widget="badge"
+                   decoration-success="state == 'purchase' or state == 'done'"
+                   decoration-warning="state == 'to approve'" decoration-info="state == 'draft' or state == 'sent'"/>
+            <field name="invoice_status" optional="hide"/>
+<!--            <field name="product_qty_list" optional="show" />-->
+          </tree>
+        </xpath>
+      </field>
+    </record>
+
+  <record model="ir.ui.view" id="search_view_product_inline_purchase">
+    <field name="name">search.view.product.inline.purchase</field>
+    <field name="model">purchase.order</field>
+    <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+    <field name="arch" type="xml">
+      <xpath expr="//search/group/filter[@name='order_date']" position="after">
+        <filter name="state" string="Status" context="{'group_by': 'state'}" />
+<!--        <filter name="order_ref" string="Product" context="{'group_by': 'order_ref'}" />-->
+      </xpath>
+    </field>
+  </record>
+
+<!--    <record model="ir.ui.view" id="search_view_product_order">-->
+<!--    <field name="name">search.view.product.order</field>-->
+<!--    <field name="model">purchase.order.line</field>-->
+<!--    <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>-->
+<!--    <field name="arch" type="xml">-->
+<!--      <xpath expr="//filter[@name='order_date']" position="after">-->
+<!--        <filter name="product_order" string="Product" context="{'group_by': 'product_order'}" />-->
+<!--      </xpath>-->
+<!--    </field>-->
+<!--  </record>-->
+
+  </data>
+</odoo>

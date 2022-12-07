@@ -1,0 +1,81 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="purchase_state_status.form">
+      <field name="name">purchase_state_status form</field>
+      <field name="model">purchase.order</field>
+      <field name="inherit_id" ref="purchase.purchase_order_form" />
+      <field name="arch" type="xml">
+        <field name="state" position="replace">
+          <field name="state" widget="statusbar" statusbar_visible="draft,sent,purchase,received" />
+        </field>
+
+        <xpath expr="//button[@name='action_create_invoice']" position="replace">
+          <button name="action_create_invoice" string="Create Bill" type="object" class="oe_highlight"
+                  context="{'create_bill':True}"
+                  attrs="{'invisible': ['|', ('state', 'not in', ('received', 'purchase', 'done')), ('invoice_status', 'in', ('no', 'invoiced'))]}"/>
+        </xpath>
+
+        <xpath expr="//button[@name='button_cancel']" position="replace">
+          <button name="button_cancel" states="draft,to approve,sent,purchase,received" string="Cancel" type="object"/>
+        </xpath>
+
+        <xpath expr="//button[@name='action_rfq_send'][2]" position="replace">
+          <button name="action_rfq_send" states="received" string="Send PO by Email" type="object" context="{'send_rfq':False}"/>
+        </xpath>
+
+        <xpath expr="//field[@name='date_order']" position="attributes">
+            <attribute name="attrs">{'invisible': [('state','in',('purchase','received','done'))]}</attribute>
+        </xpath>
+
+        <xpath expr="//label[@for='date_approve']" position="attributes">
+            <attribute name="attrs">{'invisible': [('state','not in',('purchase','done', 'received'))]}</attribute>
+        </xpath>
+
+        <xpath expr="//div[@name='date_approve']" position="replace">
+          <div name="date_approve" attrs="{'invisible': [('state','not in',('purchase', 'received', 'done'))]}" class="o_row">
+            <field name="date_approve"/>
+            <field name="mail_reception_confirmed" invisible="1"/>
+            <span class="text-muted" attrs="{'invisible': [('mail_reception_confirmed','=', False)]}">(confirmed by vendor)</span>
+          </div>
+        </xpath>
+
+        <xpath expr="//div[@name='date_planned_div']" position="replace">
+          <div name="date_planned_div" class="o_row">
+            <field name="date_planned" attrs="{'readonly': [('state', 'not in', ('draft', 'sent', 'to approve', 'purchase', 'received'))]}"/>
+            <field name="mail_reminder_confirmed" invisible="1"/>
+            <span class="text-muted" attrs="{'invisible': [('mail_reminder_confirmed', '=', False)]}">(confirmed by vendor)</span>
+          </div>
+        </xpath>
+
+        <xpath expr="//field[@name='product_id']" position="attributes">
+            <attribute name="attrs">{'readonly': [('state', 'in', ('purchase', 'received', 'to approve','done', 'cancel'))],
+              'required': [('display_type', '=', False)],}</attribute>
+        </xpath>
+
+      </field>
+      </record>
+
+      <record model="ir.ui.view" id="purchase_state_status_list_inher">
+      <field name="name">purchase.state.status.list.inher</field>
+      <field name="model">purchase.order</field>
+      <field name="inherit_id" ref="purchase.purchase_order_kpis_tree" />
+      <field name="arch" type="xml">
+
+        <xpath expr="//field[@name='date_order']" position="replace">
+        </xpath>
+
+        <xpath expr="//tree/field[@name='user_id']" position="after">
+            <field name="date_order" attrs="{'invisible': ['|', '|', '|', ('state', '=', 'draft'), ('state', '=', 'done'), ('state', '=', 'cancel'), ('state', '=', 'received')]}" invisible="not context.get('quotation_only', False)" widget="remaining_days" optional="show"/>
+        </xpath>
+
+      </field>
+      </record>
+
+      <record id="purchase.purchase_form_action" model="ir.actions.act_window">
+          <field name="domain">[('state','in',('purchase', 'received', 'done'))]</field>
+      </record>
+
+  </data>
+</odoo>

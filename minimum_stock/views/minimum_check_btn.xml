@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   <data>
+       <record id="minimum_stock_chect_button" model="ir.ui.view">
+           <field name="name">minimum.stock.check.button</field>
+           <field name="model">below.stock</field>
+           <field name="inherit_id" ref="minimum_stock.minimum_product_tree_inherit"/>
+           <field name="arch" type="xml">
+               <xpath expr="//tree" position="attributes">
+                   <attribute name="js_class">minimum_check_to_list</attribute>
+               </xpath>
+           </field>
+       </record>
+   </data>
+</odoo>

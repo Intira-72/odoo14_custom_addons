@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="create_transport_wiz_form" model="ir.ui.view">
+            <field name="name">create.transport.wiz.form</field>
+            <field name="model">transport.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="vechicle_id" /> 
+                            <field name="operation_type" invisible="1" />
+                            <field name="employee_id" options="{'no_create': True, 'no_create_edit':True}" />        
+                        </group>
+                        <group>
+                            <field name="source_id" />
+                            <field name="destination_id" />
+                        </group>
+                    </group>
+                    <field name="delivery_ids" style="pointer-events:none;" >
+                        <tree create="false">
+                            <field name="create_date" />
+                            <field name="name" />
+                            <field name="origin" readonly="1" />
+                            <field name="state" optional="show" widget="badge" decoration-success="state == 'done'" decoration-info="state not in ('done', 'cancel')"/>
+                        </tree>
+                    </field>
+                    <footer>
+                        <button string="Print" type="object" class="btn btn-primary" name="action_transport_report" />
+                        <button string="Cancel" special="cancel" />
+                    </footer>
+                </form>                
+            </field>
+        </record>
+    </data>
+</odoo>

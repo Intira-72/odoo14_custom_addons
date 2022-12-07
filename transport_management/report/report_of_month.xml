@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_of_month_template">
+        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet"/>
+        <t t-call="web.html_container">            
+            <t t-call="web.external_layout">                
+                <div class="page">
+                    <div>
+                        <div class="text-center">
+                            <h2>REPORT</h2>
+                        </div>                                                                                                                            
+                    </div> 
+                    <br/>
+                    <br/>
+                    <div class="row" style="margin-left: 5px;">
+                        <div class="col-6">
+                            <div class="row border border-secondary">
+                                <div class="col-4 bg-secondary text-white text-right">
+                                    <p style="font-family: 'Raleway', cursive; font-size: 1em; font-weight: bold; padding: 5px;">Report By :</p>
+                                </div>
+                                <div class="col-8">
+                                    <span style="vertical-align: middle;font-size: 1em; padding: 5px;" t-esc="report_by"/>
+                                </div>
+                            </div>
+                        </div>   
+                    </div>                    
+                    <div class="row" style="margin-left: 5px;">
+                        <div class="col-6">
+                            <div class="row border border-secondary border-top-0">
+                                <div class="col-4 bg-secondary text-white text-right">
+                                    <p style="font-family: 'Raleway', cursive; font-size: 1em; font-weight: bold; padding: 5px;">Date :</p>
+                                </div>
+                                <div class="col-8">
+                                    <span style="vertical-align: middle; font-size: 1em; padding: 5px;" t-esc="report_date"/>
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>                    
+                    <div class="row mt-2" style="margin-left: 5px;">
+                        <div class="col-6">
+                            <div class="row border border-secondary">
+                                <div class="col-4 bg-secondary text-white text-right">
+                                    <p style="font-family: 'Raleway', cursive; font-size: 1em; font-weight: bold; padding: 5px;">Driver :</p>
+                                </div>
+                                <div class="col-8">
+                                    <span style="vertical-align: middle; font-size: 1em; padding: 5px;" t-esc="driver"/>                                    
+                                </div>
+                            </div>
+                        </div>   
+                    </div>
+                    <div class="row" style="margin-left: 5px;">
+                        <div class="col-6">
+                            <div class="row border border-secondary border-top-0">
+                                <div class="col-4 bg-secondary text-white text-right">
+                                    <p style="font-family: 'Raleway', cursive; font-size: 1em; font-weight: bold; padding: 5px;">Operation :</p>
+                                </div>
+                                <div class="col-8">
+                                    <span style="vertical-align: middle; font-size: 1em; padding: 5px;" t-esc="operation_type"/>
+                                </div>
+                            </div>
+                        </div>   
+                    </div>
+                    <div class="row" style="margin-left: 5px;">
+                        <div class="col-6">
+                            <div class="row border border-secondary border-top-0">
+                                <div class="col-4 bg-secondary text-white text-right">
+                                    <p style="font-family: 'Raleway', cursive; font-size: 1em; font-weight: bold; padding: 5px;">From > To :</p>
+                                </div>
+                                <div class="col-8">
+                                    <span style="vertical-align: middle; font-size: 1em; padding: 5px;" t-esc="cycle_of_month"/>
+                                </div>
+                            </div>
+                        </div>   
+                    </div>
+                    <br/>
+                    <br/>
+                    <t t-if="driver == 'ALL'">
+                        <table class="table table-sm table-bordered">
+                            <thead class="thead-dark">
+                                <tr class="text-center">
+                                    <th style="width:  20%">
+                                        <strong>No</strong>
+                                    </th>
+                                    <th style="width:  30%">
+                                        <strong>Driver Name</strong>
+                                    </th>
+                                    <th style="width:  25%">
+                                        <strong>Qty</strong>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>  
+                                <t t-set="line_index" t-value="0" />
+                                <t t-foreach="report_list" t-as="o">
+                                    <t t-set="line_index" t-value="line_index + 1" />
+                                    <tr class="text-center" >
+                                        <td>
+                                            <span t-esc="line_index"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="o['partner']"/>
+                                        </td>
+                                        <td >
+                                            <span t-esc="o['drive_round']"/>
+                                        </td>                                                   
+                                    </tr>   
+                                </t>                                 
+                            </tbody>
+                        </table> 
+                    </t>
+                    <t t-if="not driver == 'ALL'">
+                        <h6 style="vertical-align: middle; font-size: 1em; text-align: right; font-weight: bold;">[TOTLE <span t-esc="count_r"/> QTY. ]</h6>
+                        <table class="table table-sm table-bordered">
+                            <thead class="thead-dark">
+                                <tr class="text-center">
+                                    <th style="width:  10%">
+                                        <strong>No</strong>
+                                    </th>
+                                    <th style="width:  20%">
+                                        <strong>Date</strong>
+                                    </th>
+                                    <th style="width:  20%">
+                                        <strong>Delivery No</strong>
+                                    </th>
+                                    <th style="width:  25%">
+                                        <strong>Vechicle No</strong>
+                                    </th>
+                                    <th style="width:  25%">
+                                        <strong>Operation</strong>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>  
+                                <t t-set="line_index" t-value="0" />
+                                <t t-foreach="report_list" t-as="o">
+                                    <t t-set="line_index" t-value="line_index + 1" />
+                                    <tr class="text-center" >
+                                        <td>
+                                            <span t-esc="line_index"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="o['date_create']"/>
+                                        </td>
+                                        <td >
+                                            <span t-esc="o['doc_name']"/>
+                                        </td>   
+                                        <td >
+                                            <span t-esc="o['vechicle_id']"/>
+                                        </td> 
+                                        <td >
+                                            <span t-esc="o['operation_type']"/>
+                                        </td>                                                 
+                                    </tr>   
+                                </t>                                 
+                            </tbody>
+                        </table> 
+                    </t>
+                    
+                </div>                
+            </t>                  
+        </t>
+    </template>   
+</odoo>

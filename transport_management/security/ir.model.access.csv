@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_transport_management,transport.management,model_transport_management,base.group_user,1,1,1,1
+access_transport_vehicles,transport.vehicles,model_transport_vehicles,base.group_user,1,1,1,1
+access_transport_vehicle_types,transport.vehicle.types,model_transport_vehicle_types,base.group_user,1,1,1,1
+access_transport_wizard,transport.wizard,model_transport_wizard,base.group_user,1,1,1,1
+access_transport_report_wizard,transport.report.wizard,model_transport_report_wizard,base.group_user,1,1,1,1

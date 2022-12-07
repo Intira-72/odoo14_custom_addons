@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+store_list,store_list,model_store_list,base.group_user,1,1,1,1
+store_products,store_products,model_store_products,base.group_user,1,1,1,1
+store_products_variant,store_products_variant,model_store_products_variant,base.group_user,1,1,1,1
+map_product_to_other_stores,map_product_to_other_stores,model_map_product_to_other_stores,base.group_user,1,1,1,1
+wrong_upload_so_list,wrong_upload_so_list,model_wrong_upload_so_list,base.group_user,1,1,1,1
+import_file_data,import_file_data,model_import_file_data,base.group_user,1,1,1,1
+storage_file_upload,storage.file.upload,model_storage_file_upload,base.group_user,1,1,1,1
+import_file_config,import_file_config,model_import_file_config,base.group_user,1,1,1,1
+access_open_import_update_product_list_wiz,open_import_update_product_list_wiz,model_open_import_update_product_list_wiz,base.group_user,1,1,1,1
+access_import_sale_order_wiz,import_sale_order_wiz,model_import_sale_order_wiz,base.group_user,1,1,1,1

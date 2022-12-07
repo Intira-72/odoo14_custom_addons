@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record id="report_delivery_order_landscape" model="report.paperformat">
+        <field name="name">Picking Operations (Multi)</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+    </record>
+
+    <record id="delivery_order_merge_action" model="ir.actions.report">
+        <field name="name">Picking Operations (Multi)</field>
+        <field name="model">stock.merge.delivery.order.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">merge_delivery_order.delivery_order_merge_requisition_template</field>
+        <field name="report_file">merge_delivery_order.delivery_order_merge_requisition_template</field>
+        <field name="print_report_name">"Requisition Products"</field>
+        <field name="binding_model_id" ref="merge_delivery_order.model_stock_merge_delivery_order_wizard" />
+        <field name="binding_type">action</field>
+        <field name="paperformat_id" ref="report_delivery_order_landscape"/>  
+    </record>  
+    
+</odoo>
+

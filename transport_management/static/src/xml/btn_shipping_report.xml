@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <templates>
+    <t t-extend="ListView.buttons" t-name="shipping_report_button.buttons">
+        <t t-jquery="button.o_list_export_xlsx" t-operation="after" >
+            <button type="button" class="btn btn-outline-primary fa fa-folder-open o_shipping_report" title="Report"> Report</button>
+        </t>
+    </t>
+</templates>

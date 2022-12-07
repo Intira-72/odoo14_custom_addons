@@ -1,0 +1,14 @@
+<odoo>
+  <data>
+    <record id="open_shipping_wizard" model="ir.ui.view">
+      <field name="name">open.shipping.wizard</field>
+      <field name="model">stock.picking</field>
+      <field name="inherit_id" ref="stock.vpicktree" />
+      <field name="arch" type="xml">
+        <xpath expr="//button[@name='do_unreserve']" position="before">
+          <button name="action_open_transport_wiz" string="PDF Shipping" type="object" />
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>

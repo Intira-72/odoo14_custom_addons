@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id="search_sale_order_line_view_tree" model="ir.ui.view">
+		<field name="name">search.sale.order.line.view.tree</field>
+		<field name="model">sale.order.line</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="customer_ref" string="Customer Reference" filter_domain="[('customer_ref', 'ilike', self)]" />
+				<field name="product_id" string="Product" filter_domain="['|', ('product_id.name', 'ilike', self), ('product_id.product_tmpl_id.default_code', 'ilike', self)]" />				
+				<field name="order_ids" string="Order No." filter_domain="[('order_ids', 'ilike', self)]" />
+
+				<group string="Group By">
+					<filter name="order_ids" string="Order No." context="{'group_by' : 'order_ids'}" />
+					<filter name="customer_ref" string="Customer Reference" context="{'group_by' : 'customer_ref'}" />
+					<filter name="product_id" string="Product" context="{'group_by' : 'product_id'}" />
+				</group>
+
+				<filter string="My" name="create_uid" domain="[('create_uid', '=', uid)]"/>
+                <separator/>
+				<filter string="Quotation" name="order_state" domain="[('order_state','in',('draft','sent'))]" />
+				<separator/>
+				<!-- <filter string="NO OnHand" name="on_hand_today" domain="[('on_hand_today','&lt;', 0)]" /> -->
+			</search>
+		</field>
+	</record>
+
+	<record id="view_sale_order_line_tree" model="ir.ui.view">
+		<field name="name">view.sale.order.line.tree</field>
+		<field name="model">sale.order.line</field>
+		<field name="priority">2</field>
+		<field name="arch" type="xml">
+			<tree string="Sale Order Lines" editable="bottom" create="false"
+			decoration-danger="(on_hand_today &lt; 1) and (order_state == 'draft')"
+			decoration-bf="(on_hand_today &lt; 1) and (order_state == 'draft')"
+			decoration-muted="order_state!='draft'"
+			decoration-it="order_state!='draft'">
+				<field name="order_ids" string="Order No." optional="show" width="150px" decoration-bf="1" />
+				<field name="customer_ref" string="Customer Reference" optional="show" width="200px" />
+				<field name="customer_id" string="Customer" optional="show" width="200px" />				
+				<field name="product_id" string="Product" optional="show" />	
+				<field name="product_uom_qty" optional="show" width="200px" sum="Total Qty" />
+				<field name="product_type" invisible="1"/>
+				<field name="company_id" invisible="1"/>
+				<field name="on_hand_today" optional="hide" width="200px" />
+				<field name="price_unit" string="Unit Price" optional="show" width="200px" />
+				<field name="order_state" width="200px" decoration-success="order_state == 'sale' or order_state == 'done'" decoration-info="order_state == 'draft' or order_state == 'sent'" widget="badge" optional="show" on_change="1" modifiers="{'readonly':true}"/>	
+			</tree>
+		</field>
+	</record>	
+	
+	<record id="action_sale_lines_menu" model="ir.actions.act_window">
+		<field name="name">Sale Orders Line</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">sale.order.line</field>
+		<field name="view_id" ref="sale_order_line.view_sale_order_line_tree"/>
+		<field name="view_mode">tree</field>
+		<field name="context">{"search_default_create_uid":1,"search_default_order_state":1}</field>
+		<field name="search_view_id" ref="search_sale_order_line_view_tree"/>
+	</record>
+
+	<record id="con_sale_order_action" model="ir.actions.server">
+		<field name="name">Confirm Sale Order</field>
+		<field name="model_id" ref="model_sale_order_line"/>
+		<field name="binding_model_id" ref="model_sale_order_line"/>
+		<field name="state">code</field>
+		<field name="code">action = model.confirm_orders()</field>
+	</record>
+	
+	<menuitem id="action_sale_lines_menu_id" name="Orders Line"
+		action="sale_order_line.action_sale_lines_menu" parent="sale.sale_order_menu"
+		 sequence="3"/>
+
+</odoo>

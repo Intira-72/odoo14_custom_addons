@@ -1,0 +1,98 @@
+<odoo>
+  <data>
+    <record id="search_inventory_disbursement_request_view_tree" model="ir.ui.view">
+      <field name="name">search.inventory.disbursement.request.view.tree</field>
+      <field name="model">inventory.disbursement.request</field>
+      <field name="arch" type="xml">
+        <search>
+          <filter name="print_count" string="Nothing Print" domain="[('print_count', '=', 0)]"/>
+        </search>
+      </field>
+    </record>
+
+    <record id="inventory_disbursement_request_view_tree" model="ir.ui.view">
+      <field name="name">inventory.disbursement.request.view.tree</field>
+      <field name="model">inventory.disbursement.request</field>
+      <field name="arch" type="xml">
+        <tree string="disbursement_request_list">
+          <field name="name" />
+          <field name="product_id" />
+          <field name="print_count" optional="show" />
+          <field name="create_uid" />
+          <field name="create_date" />          
+        </tree>
+      </field>
+    </record>
+
+    <record id="inventory_disbursement_request_view_form" model="ir.ui.view">
+      <field name="name">inventory.disbursement.request.form</field>
+      <field name="model">inventory.disbursement.request</field>
+      <field name="arch" type="xml">
+        <form string="disbursement_request_form" create="false">
+          <header>
+              <button name="req_export_pdf" string="Print PDF" type="object" class="oe_highlight"/>
+          </header>
+          <sheet>
+            <div class="oe_title">
+                <h1>
+                    <field name="name" attrs="{'invisible': [('name','=','/')]}"/>
+                </h1>
+            </div>
+            <group>
+              <group>
+                <field name="product_id" readonly="1"/>                
+              </group>
+              <group>
+                <field name="create_uid" readonly="1"/>
+                <field name="write_date" readonly="1"/>
+              </group>
+            </group>
+            <notebook>
+              <page string="Delivery Lists">
+                <field name="picking_ids">
+                  <tree editable="1">
+                    <field name="company_id" invisible="1" />
+                    <field name="reference" />
+                    <field name="location_id" />
+                    <field name="product_uom_category_id" invisible="1"/>
+                    <field name="product_uom_qty" readonly="1" sum='Total PCS.' />
+                    <field name="product_uom_id" readonly="1" />
+                  </tree>
+                </field>                
+              </page>
+              <page string="Stock Locations">
+                <field name="stock_location_ids">
+                  <tree editable="0">
+                    <field name="company_id" invisible="1" />
+                    <field name="location_id" />
+                    <field name="in_date" />
+                    <field name="quantity" readonly="1" sum='Total PCS.' />
+                  </tree>
+                </field>  
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="inventory_disbursement_request_view_tree_action_window" model="ir.actions.act_window">
+      <field name="name">Disbursement Requestions</field>
+      <field name="res_model">inventory.disbursement.request</field>
+      <field name="context">{"search_default_print_count":1}</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Disbursement Request" id="inventory_disbursement_request_menu" parent="stock.menu_stock_warehouse_mgmt"
+              action="inventory_disbursement_request_view_tree_action_window"/>
+
+    <!-- Action Menu in Inventory -->
+    <record id="action_inventory_dis_request" model="ir.actions.server">
+      <field name="name">Create Requestion By Product</field>
+      <field name="model_id" ref="model_inventory_disbursement_request"/>
+      <field name="binding_model_id" ref="stock.model_stock_picking"/>
+      <field name="state">code</field>
+      <field name="code">action = model.create()</field>
+	  </record>
+  </data>
+</odoo>

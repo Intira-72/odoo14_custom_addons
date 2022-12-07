@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="stock_merge_delivery_order" model="ir.ui.view">
+            <field name="name">stock.merge.delivery.order</field>
+            <field name="model">stock.merge.delivery.order.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="order_line_ids">
+                        <tree>
+                            <field name="product_id" string="Product" />
+                            <field name="location_id" />
+                            <field name="product_uom_qty" string="Qty" />
+                        </tree>
+                    </field>                                      
+                </form>
+                <footer>
+                    <button string="Load PDF" type="object" class="btn btn-primary" name="action_report_merge_order" />
+                    <button string="Cancel" special="cancel" />
+                </footer>
+            </field>
+        </record> 
+
+        <record id="stock_merge_delivery_action" model="ir.actions.act_window">
+            <field name="name">Requisition Product</field>
+            <field name="res_model">stock.merge.delivery.order.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>  
+
+    </data>
+</odoo>
+

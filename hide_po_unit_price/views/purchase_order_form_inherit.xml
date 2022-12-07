@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    <record id="purchase_order_form_inher" model="ir.ui.view">
+        <field name="name">purchase.order.inher</field>
+        <field name="model">purchase.order</field>
+        <field name="groups_id" eval="[(4, ref('account.group_purchase_receipts'))]" />
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form//sheet//notebook//page[@name='products']//field[@name='price_unit']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//form//sheet//notebook//page[@name='products']//field[@name='price_subtotal']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//form//sheet//notebook//page[@name='products']//field[@name='taxes_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath><xpath expr="//field[@name='notes']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath><xpath expr="//field[@name='amount_untaxed']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath><xpath expr="//field[@name='amount_tax']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath><xpath expr="//field[@name='amount_total']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>            
+        </field>
+    </record>    
+    </data>
+</odoo>
+

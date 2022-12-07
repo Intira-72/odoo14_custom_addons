@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   <data>
+       <record id="transport_management_inherited_tree_view" model="ir.ui.view">
+           <field name="name">transport.management.view.tree.inherit</field>
+           <field name="model">transport.management</field>
+           <field name="inherit_id" ref="transport_management.transport_management_tree_view"/>
+           <field name="arch" type="xml">
+               <xpath expr="//tree" position="attributes">
+                   <attribute name="js_class">button_shipping_report</attribute>
+               </xpath>
+           </field>
+       </record>
+   </data>
+</odoo>

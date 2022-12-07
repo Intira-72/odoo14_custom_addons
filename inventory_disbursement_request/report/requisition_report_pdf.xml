@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="requisition_report_template">
+        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet"/>
+        <t t-call="web.html_container">            
+            <t t-call="web.external_layout">                
+                <div class="page">
+                    <div>
+                        <div class="text-center">
+                            <h2>Requisition No. <b><t t-esc="name"/></b></h2>
+                        </div>
+                        <br/>
+                        <table class="table table-sm table-bordered">
+                            <thead class="thead-dark">
+                                <tr class="text-center">
+                                    <th style="width:  20%">
+                                        <strong>Date</strong>
+                                    </th>
+                                    <th style="width:  40%">
+                                        <strong>Product</strong>
+                                    </th>
+                                    <th style="width:  10%">
+                                        <strong>Total Qty</strong>
+                                    </th>
+                                    <th style="width:  30%">
+                                        <strong>Location</strong>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>                                    
+                                <tr class="text-center" >
+                                    <td>
+                                        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="product"/>
+                                    </td>
+                                    <td >
+                                        <span t-esc="total_qty"/> PCS.
+                                    </td>
+                                    <td>
+                                        <span t-esc="location"/>
+                                    </td>
+                                </tr>                                    
+                            </tbody>
+                        </table> 
+                        <br/>
+                        <h5>Details :</h5>
+                        <table class="table table-sm table-bordered">
+                            <thead class="thead-dark">
+                                <tr class="text-center">
+                                    <th style="width:  25%">
+                                        <strong>Order No.</strong>
+                                    </th>
+                                    <th style="width:  25%">
+                                        <strong>Customer Ref.</strong>
+                                    </th>
+                                    <th style="width:  30%">
+                                        <strong>Customer</strong>
+                                    </th>
+                                    <th style="width:  20%">
+                                        <strong>Qty</strong>
+                                    </th>                                    
+                                </tr>
+                            </thead>
+                            <tbody>   
+                                <t t-foreach="order_lists" t-as="order">                                 
+                                    <tr class="text-center">
+                                        <td>
+                                            <span t-esc="order['order_no']"/>
+                                        </td>
+                                        <td>
+                                            <span t-esc="order['customer_ref']"/>
+                                        </td>                                        
+                                        <td>
+                                            <span t-esc="order['partner']"/>
+                                        </td>
+                                        <td >
+                                            <span t-esc="order['order_qty']"/>
+                                        </td>
+                                    </tr> 
+                                </t>                                    
+                            </tbody>
+                        </table> 
+                        <br/>
+                        <br/>
+                        <table class="table table-sm table-bordered" style="width: 50%; float: right;">
+                            <thead class="thead-light">
+                                <tr class="text-center">
+                                    <th>
+                                        <strong>Request By</strong>
+                                    </th>
+                                    <th>
+                                        <strong>Operated By</strong>
+                                    </th>
+                                    <th>
+                                        <strong>Approved By</strong>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>                                    
+                                <tr style="height: 60px">
+                                    <td style="vertical-align: middle; text-align: center;"><span style=" font-family: 'Raleway', cursive; font-size: 1.2em;" t-esc="u_id"/></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>                                    
+                            </tbody>
+                        </table>                                                                                                                                
+                    </div>                                      
+                </div>                
+            </t>                  
+        </t>
+    </template>   
+</odoo>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="transport_report" model="report.paperformat">
+            <field name="name">Transport</field>
+            <field name="default" eval="False"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+        </record>
+
+        <record id="transport_report_action" model="ir.actions.report">
+            <field name="name">Delivery Note</field>
+            <field name="model">transport.management</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">transport_management.delivery_note_report_template</field>
+            <field name="report_file">transport_management.delivery_note_report_template</field>
+            <field name="print_report_name">'Delivery Note - %s' % (object.name or '')</field>
+            <field name="binding_type">report</field>
+            <!-- <field name="binding_model_id" ref="model_stock_picking"/> -->
+            <field name="paperformat_id" ref="transport_report"/>  
+        </record>
+
+        <record id="report_of_month" model="report.paperformat">
+            <field name="name">Report</field>
+            <field name="default" eval="False"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+        </record>
+
+        <record id="action_report_of_month" model="ir.actions.report">
+            <field name="name">Delivery Report</field>
+            <field name="model">transport.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">transport_management.report_of_month_template</field>
+            <field name="report_file">transport_management.report_of_month_template</field>
+            <field name="print_report_name">'Delivery Report'</field>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="report_of_month"/>  
+        </record>    
+    </data>   
+</odoo>

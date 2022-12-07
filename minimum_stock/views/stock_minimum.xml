@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="minimum_product_tree_inherit" model="ir.ui.view">
+    <field name="name">minimum.product.tree.inherit</field>
+    <field name="model">below.stock</field>
+    <field name="arch" type="xml">
+      <tree create="false">
+        <field name="product_id" optional="show" />
+        <field name="create_date" string="Run Scheduler Date" optional="show" />
+        <field name="product_min_qty" optional="show" decoration-bf="1" />
+        <field name="qty_availabel" optional="show" />
+        <field name="virtual_available" optional="show" />
+        <field name="required_amount" optional="show" decoration-bf="1" decoration-danger="required_amount != 0" />
+      </tree>
+    </field>
+  </record>
+
+  <record id="minimum_product_form_inherit" model="ir.ui.view">
+    <field name="name">minimum.product.form.inherit</field>
+    <field name="model">below.stock</field>
+    <field name="arch" type="xml">
+      <form create="false" edit="false">
+        <sheet>
+          <h1><field name="product_id" /></h1>
+          <group> 
+            <group>
+              <field name="qty_availabel" />
+              <field name="virtual_available" />              
+            </group>           
+            <group>              
+              <field name="product_min_qty" decoration-bf="1" />
+              <field name="required_amount" decoration-bf="1" decoration-danger="required_amount != 0" />
+            </group>            
+          </group>
+          <notebook>
+            <page name='quotation_inherit' string="Quotations and Orders">
+              <field name="order_ids" style="pointer-events:none;">
+                <tree>
+                  <field name="order_id" />
+                  <field name="product_qty" sum="Total" />
+                  <field name="product_uom" width="200px"/>
+                  <field name="state" optional="show" widget="badge" decoration-success="state == 'purchase' or state == 'done'" decoration-warning="state == 'to approve'" decoration-info="state == 'draft' or state == 'sent'" />
+                </tree>
+              </field>
+            </page>
+          </notebook>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="action_below_minimum_stock" model="ir.actions.act_window">
+            <field name="name">Minimum Stock Management</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">below.stock</field>
+            <field name="view_mode">tree,form</field>
+  </record>
+
+  <menuitem id="below_minimum_menu_item"
+            name="Minimum Stock Management"
+            parent="stock.menu_stock_warehouse_mgmt"
+            action="action_below_minimum_stock"
+            sequence="135"/>
+</odoo>
+
+

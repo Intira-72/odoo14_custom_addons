@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="transport_vehicle_types_view_tree" model="ir.ui.view">
+            <field name="name">transport.vehicle.types.view.tree</field>
+            <field name="model">transport.vehicle.types</field>
+            <field name="arch" type="xml">
+                <tree string="transport_vehicle_types" editable="top">
+                    <field name="name" string="Category Name" />
+                    <field name="weight_limit" decoration-bf="1" />
+                    <field name="container_size" decoration-bf="1" />
+                    <field name="container_width" optional="show" />
+                    <field name="container_length" optional="show" />
+                    <field name="container_height" optional="show" />                    
+                    <field name="is_active" string="Active" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="transport_vehicle_types_action_window" model="ir.actions.act_window">
+            <field name="name">Categories</field>
+            <field name="res_model">transport.vehicle.types</field>
+            <field name="view_mode">tree,form</field>
+        </record> 
+
+        
+        <menuitem name="Categories" id="transport_management_vihicle_type_menu" parent="transport_management_vehicle_menu"
+              action="transport_vehicle_types_action_window"/>     
+    
+    </data>
+</odoo>
+
+

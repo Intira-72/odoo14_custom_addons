@@ -1,0 +1,28 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="store_list_view">
+      <field name="name">store.list.view</field>
+      <field name="model">store.list</field>
+      <field name="arch" type="xml">
+        <tree editable="bottom">
+          <field name="name"/>
+          <field name="store_group_id" options="{'limit': 10, 'no_create_edit': true}"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="store_list_action_window">
+      <field name="name">Stores</field>
+      <field name="res_model">store.list</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="mapping_products_name.menu" name="Shops" parent="sale.sale_menu_root" sequence="4"/>
+
+    <menuitem name="Shops" id="mapping_products_name.store_menu_item" parent="mapping_products_name.menu"/>
+
+    <menuitem name="Shop" id="mapping_products_name.store_lists" parent="mapping_products_name.store_menu_item"
+              action="store_list_action_window"/>    
+
+  </data>
+</odoo>
