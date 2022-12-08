@@ -17,7 +17,8 @@ class TransportManagement(models.Model):
     vechicle_id = fields.Many2one('transport.vehicles', string="Vechicle", required=True, readonly=False, states={'cancel': [('readonly', True)]})
     delivery_ids = fields.Many2many('stock.picking', string="Order No.", readonly=False, states={'cancel': [('readonly', True)]})
     source_id = fields.Many2one('stock.location', string="From", required=True, readonly=False, states={'cancel': [('readonly', True)]})
-    destination_id = fields.Many2one('stock.location', string="To", required=True, readonly=False, states={'cancel': [('readonly', True)]})
+    # destination_id = fields.Many2one('stock.location', string="To", required=True, readonly=False, states={'cancel': [('readonly', True)]})
+    dest_ids = fields.Many2many('res.partner', string="Destiation")
     employee_id = fields.Many2one('hr.employee', string="Driver", readonly=False, states={'cancel': [('readonly', True)]})
     state = fields.Selection([
         ('done', 'Done'),
@@ -49,23 +50,50 @@ class TransportManagement(models.Model):
         data = {'name': self.name,
                 'vechicle_id': f"{self.vechicle_id.vehicle_reg}",
                 'from_loc': f"{self.source_id.name}",
-                'to_loc': f"{self.destination_id.name}",
+                # 'to_loc': f"{self.destination_id.name}",
+                'to_loc': ", ".join([dest.name for dest in self.dest_ids]),
                 'operation_type': f"{self.operation_type.name}",
                 'order_lists': order_lists,
                 'employee_id': f"{self.employee_id.name}",
                 'u_id': self.create_uid.name}
-
         
-        report_action = self.env.ref('transport_management.transport_report_action').report_action(self, data=data) 
+        return self._print_pdf(data)
+
+
+    def action_report_pdf_reprint(self):    
+        order_lists = []
+
+        for order in self.delivery_ids:
+            order_lists.append({'reference': f"{order.name}",
+                                'create_date': f"{order.create_date.strftime('%Y-%m-%d')}",
+                                "origin": order.origin})
+
+        data = {'name': self.name,
+                'vechicle_id': f"{self.vechicle_id.vehicle_reg}",
+                'from_loc': f"{self.source_id.name}",
+                'to_loc': ", ".join([dest.name for dest in self.dest_ids]),
+                'operation_type': f"{self.operation_type.name}",
+                'order_lists': order_lists,
+                'employee_id': f"{self.employee_id.name}",
+                'u_id': self.create_uid.name}
+        
+        return self._print_pdf(data)
+
+
+    def _print_pdf(self, values):
+
+        report_action = self.env.ref('transport_management.transport_report_action').report_action(self, data=values) 
         report_action['print_report_name'] = self.name
         
         return report_action
+
 
     def write(self, val_list):
         o_data = {'vechicle_id': self.vechicle_id,
                 'employee_id': self.employee_id,
                 'source_id': self.source_id,
-                'destination_id': self.destination_id,
+                # 'destination_id': self.destination_id,
+                'dest_ids': self.dest_ids,
                 'delivery_ids': self.delivery_ids}
         
     
@@ -83,8 +111,11 @@ class TransportManagement(models.Model):
         if o_data['source_id'] != n_data.source_id:
             msg.append(self._get_msg('Source Location', o_data["source_id"].name, n_data.source_id.name))
 
-        if o_data['destination_id'] != n_data.destination_id:
-            msg.append(self._get_msg('Desination Location', o_data["destination_id"].name, n_data.destination_id.name))
+        # if o_data['destination_id'] != n_data.destination_id:
+        #     msg.append(self._get_msg('Desination Location', o_data["destination_id"].name, n_data.destination_id.name))
+
+        if o_data['dest_ids'] != n_data.dest_ids:
+            msg.append(self._get_msg('Desination Location', o_data["dest_ids"], n_data.dest_ids))
 
         if o_data['delivery_ids'] != self.delivery_ids:
             val_dif = set(o_data['delivery_ids']) ^ set(self.delivery_ids)

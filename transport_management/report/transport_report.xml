@@ -36,7 +36,8 @@
                                         <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
                                     </td>
                                     <td>
-                                        <span t-esc="vechicle_id"/>
+                                        รถ : <span t-esc="vechicle_id"/><br/>
+                                        คนขับ : <span t-esc="employee_id" />
                                     </td>
                                     <td >
                                         <span t-esc="from_loc"/>
@@ -105,7 +106,7 @@
                                 <tbody>                                    
                                     <tr style="height: 60px">
                                         <td style="vertical-align: middle; text-align: center;"><span style=" font-family: 'Raleway', cursive; font-size: 1.2em;" t-esc="u_id"/></td>
-                                        <td style="vertical-align: middle; text-align: center;"><span style=" font-family: 'Raleway', cursive; font-size: 1.2em;" t-esc="employee_id"/></td>
+                                        <td></td>
                                         <td></td>
                                     </tr>                                    
                                 </tbody>

@@ -8,6 +8,7 @@
         <search string="Shipping Lists">
           <filter name="done" string="Done" domain="[('state', '=', 'done')]" help="Pickings already processed"/>
           <filter name="cancel" string="Cancelled" domain="[('state', '=', 'cancel')]" help="Cancelled Moves"/>
+          <filter name="group_employee_id" string="Driver" context="{'group_by':'employee_id'}"/>
         </search>
       </field>
     </record>
@@ -19,9 +20,9 @@
         <tree create="false" delete="false" decoration-muted="state=='cancel'">
           <field name="name" decoration-bf="1"/>
           <field name="source_id" />
-          <field name="destination_id" />
+          <field name="dest_ids" widget="many2many_tags" />
           <field name="employee_id" optional="show" />
-          <field name="operation_type" optional="hide" />
+          <field name="operation_type" optional="hide" decoration-bf='1' />
           <field name="create_uid" decoration-bf="1" />
           <field name="create_date" />
           <field name="state" optional="show" widget="badge" decoration-success="state == 'done'" />
@@ -40,7 +41,7 @@
           </header>
           <sheet>
             <div class="oe_button_box" name="button_box" modifiers="{}">
-              <button type="object" name="action_report_pdf" class="oe_stat_button" icon="fa-print">
+              <button type="object" name="action_report_pdf_reprint" class="oe_stat_button" icon="fa-print">
                 <div class="o_field_widget o_stat_info" modifiers="{}">
                   <span class="o_stat_text" modifiers="{}">
                     Print PDF
@@ -65,7 +66,7 @@
             <group>
               <group>
                 <field name="source_id" />
-                <field name="destination_id" />
+                <field name="dest_ids" widget="many2many_tags" />
               </group>
               <group>
                 <field name="create_uid" string="Created By" readonly="1" />

@@ -38,7 +38,8 @@ class TransportReportWizard(models.TransientModel):
                     ls.append(data_line)
 
             report_all_list.append({'partner': self.env['hr.employee'].browse(by_partner).name,
-                                    'drive_round': len(ls)})
+                                    'delivery_round': len([l for l in ls if l[0].operation_type.id == 2]),
+                                    'internal_round': len([l for l in ls if l[0].operation_type.id == 5])})
 
         return report_all_list
 

@@ -25,8 +25,9 @@ class TransportWizard(models.TransientModel):
     vechicle_id = fields.Many2one('transport.vehicles', string="Vechicle", required=True)
     delivery_ids = fields.Many2many('stock.picking', string="Order No.", default=get_order_ids)
     source_id = fields.Many2one('stock.location', string="From", default=8, required=True)
-    destination_id = fields.Many2one('stock.location', string="To", default=8, required=True)
+    # destination_id = fields.Many2one('stock.location', string="To", default=8, required=True)
     employee_id = fields.Many2one('hr.employee', string="Driver", domain="[('department_id', '=', 'Driver')]", required=True)
+    dest_ids = fields.Many2many('res.partner', string="Destiation", required=True)
 
 
     def action_transport_report(self):
@@ -38,7 +39,7 @@ class TransportWizard(models.TransientModel):
             'operation_type': self.operation_type.id,
             'delivery_ids': [(6, 0, active_ids)],
             'source_id': self.source_id.id,
-            'destination_id': self.destination_id.id,
+            'dest_ids': self.dest_ids,
             'employee_id': self.employee_id.id
         }
 

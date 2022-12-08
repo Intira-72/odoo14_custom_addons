@@ -5,7 +5,7 @@
     'description': """The transport manager records transport records and generates transport documentation and confirmation of pick-up and delivery of goods from the origin and destination.""",
     'author': "H.Dev.",
     'category': 'Inventory',
-    'version': '0.4',
+    'version': '0.5',
     'depends': ['base', 'stock', 'contacts', 'hr', 'mail'],
     'data': [
         'security/ir.model.access.csv',
