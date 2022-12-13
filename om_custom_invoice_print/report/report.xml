@@ -6,17 +6,17 @@
             <field name="default" eval="False"/>
             <field name="format">A4</field>
             <field name="orientation">Portrait</field>
-        </record>
+        </record> -->
 
-        <record id="action_report_of_month" model="ir.actions.report">
-            <field name="name">Delivery Report</field>
-            <field name="model">transport.report.wizard</field>
+        <record id="action_custom_inv_print" model="ir.actions.report">
+            <field name="name">Invoices (Custom)</field>
+            <field name="model">account.move</field>
             <field name="report_type">qweb-pdf</field>
-            <field name="report_name">transport_management.report_of_month_template</field>
-            <field name="report_file">transport_management.report_of_month_template</field>
-            <field name="print_report_name">'Delivery Report'</field>
+            <field name="report_name">om_custom_invoice_print.custom_invoices_template</field>
+            <field name="report_file">om_custom_invoice_print.custom_invoices_template</field>
             <field name="binding_type">report</field>
-            <field name="paperformat_id" ref="report_of_month"/>  
-        </record>     -->
+            <field name="binding_model_id" ref="model_account_move"/>
+            <!-- <field name="paperformat_id" ref="report_of_month"/>   -->
+        </record>    
     </data>   
 </odoo>
