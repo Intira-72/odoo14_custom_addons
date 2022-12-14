@@ -1,0 +1,6 @@
+<odoo>
+  <template id="internal_layout_inherited" inherit_id="web.internal_layout">
+      <xpath expr="//div[hasclass('header')]" position="replace">
+      </xpath>
+  </template>
+</odoo>
