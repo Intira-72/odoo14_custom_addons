@@ -16,6 +16,7 @@ class CustomInvoice(models.AbstractModel):
               'data': data,
               'some_code': self.some_code(docs.invoice_origin),
               'inv_move_line': self.inv_move_line(docs.invoice_line_ids),
+              'state_name': 'กรุงเทพมหานคร' if docs.partner_id.state_id.name == 'กรุงเทพ' else docs.partner_id.state_id.name,
               'amout_bahttext': f"( {bahttext(docs.amount_total)} )"
         }
 
