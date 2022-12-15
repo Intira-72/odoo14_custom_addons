@@ -38,7 +38,7 @@
                                 <div class="col-2"></div>
                                 <div class="col-3">
                                     <t t-set="payment_term" t-value="o.invoice_payment_term_id.name" />
-                                    <span t-esc="payment_term.replace('Days', '')"/>
+                                    <span t-esc="'-' if payment_term == False else payment_term.replace('Days', '')"/>
                                     <span style="padding-left: 100px;" t-field="o.invoice_date_due"/>
                                 </div>
                             </div>
