@@ -6,16 +6,16 @@
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">  
                 <t t-call="web.internal_layout">         
-                    <div class="page" style="font-family: 'Angsana New'; font-size: 24px;">                        
+                    <div class="page" style="font-family: 'Angsana New'; font-size: 24px; line-height: 1.3;">                    
                         <div>
                             <div class="row">
                                 <div class="col-1"></div>
                                 <div class="col-6">
                                     <span t-field="o.partner_id.street"/><br/>
                                 </div>
-                                <div class="col-2"></div>
-                                <div class="col-3">
-                                    <span t-field="o.custom_name"/>
+                                <div class="col-1"></div>
+                                <div class="col-4">
+                                    <span style="padding-left: 45px;" t-field="o.custom_name"/>
                                 </div>
                             </div>
                             <div class="row">
@@ -23,9 +23,9 @@
                                 <div class="col-6">
                                     <span t-field="o.partner_id.street2"/>
                                 </div>
-                                <div class="col-2"></div>
-                                <div class="col-3">
-                                    <span t-field="o.invoice_date"/>
+                                <div class="col-1"></div>
+                                <div class="col-4">
+                                    <span style="padding-left: 45px;" t-field="o.invoice_date"/>
                                 </div>
                             </div>
                             <div class="row">
@@ -35,11 +35,11 @@
                                     <span t-esc="state_name"/>
                                     <span t-field="o.partner_id.zip"/>
                                 </div>
-                                <div class="col-2"></div>
-                                <div class="col-3">
+                                <div class="col-1"></div>
+                                <div class="col-4">
                                     <t t-set="payment_term" t-value="o.invoice_payment_term_id.name" />
-                                    <span t-esc="'-' if payment_term == False else payment_term.replace('Days', '')"/>
-                                    <span style="padding-left: 100px;" t-field="o.invoice_date_due"/>
+                                    <span style="padding-left: 45px;" t-esc="'-' if payment_term == False else payment_term.replace('Days', '')"/>
+                                    <span style="padding-left: 135px;" t-field="o.invoice_date_due"/>
                                 </div>
                             </div>
                             <div class="row">
@@ -47,9 +47,9 @@
                                 <div class="col-5">
                                     <span t-field="o.partner_id.vat"/>
                                 </div>
-                                <div class="col-2"></div>
-                                <div class="col-3">
-                                    <span t-field="o.ref"/>
+                                <div class="col-1"></div>
+                                <div class="col-4">
+                                    <span style="padding-left: 45px;" t-field="o.ref"/>
                                 </div>
                             </div>
                             <div class="row">
@@ -57,14 +57,14 @@
                                 <div class="col-6">
                                     <span t-field="o.narration"/>
                                 </div>
-                                <div class="col-2"></div>
-                                <div class="col-3">
-                                    <span t-esc="some_code"/>
+                                <div class="col-1"></div>
+                                <div class="col-4">
+                                    <span style="padding-left: 45px;" t-esc="some_code"/>
                                 </div>
                             </div>
                         </div>
                            
-                        <div style="margin-top: 120px;">
+                        <div style="margin-top: 80px;">
                             <t t-foreach="inv_move_line" t-as="inv">
                                 <div class="row">
                                     <div class="col-2">
@@ -73,14 +73,17 @@
                                     <div class="col-4">
                                         <span t-esc="inv['p_name']"/>
                                     </div>
-                                    <div class="col-1" style="text-align: right;">
-                                        <span t-esc="inv['quantity']"/>
+                                    <div class="col-3">
+                                        <div class="row" style="padding: 0;">
+                                            <div class="col-6" style="text-align: right;">
+                                                <span style="padding-right: 15px;" t-esc="inv['quantity']"/>
+                                            </div>
+                                            <div class="col-6" style="text-align: right;">
+                                                <span t-esc="inv['price_unit']"/>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-2" style="text-align: right;">
-                                        <span t-esc="inv['price_unit']"/>
-                                    </div>
-                                    <div class="col-1">                                            
-                                    </div>
+                                    <div class="col-1"></div>                                         
                                     <div class="col-2" style="text-align: right;">
                                         <span t-esc="inv['price_subtotal']"/>
                                     </div>
@@ -88,7 +91,7 @@
                             </t>
                         </div>  
 
-                        <div style="width: 95%; position:absolute; top:780px; page-break-inside: avoid; right:20px;">
+                        <div style="width: 95%; position:absolute; top:840px; page-break-inside: avoid; right:20px;">
                             <div class="row">
                                 <div class="col-10"></div>
                                 <div class="col-2" style="text-align: right;">
