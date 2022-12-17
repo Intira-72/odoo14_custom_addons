@@ -6,19 +6,28 @@ class CustomInvoice(models.AbstractModel):
     _name = 'report.om_custom_invoice_print.custom_invoices_template'
 
     @api.model
-    def _get_report_values(self, docids, data=None):
+    def _get_report_values(self, docids, data=[]):
         docs = self.env['account.move'].browse(docids)
-        print(bahttext(docs.amount_total))
+
+        # for doc in docs:
+        #     data.append({
+        #         'some_code': self.some_code(doc.invoice_origin),
+        #         'inv_move_line': self.inv_move_line(doc.invoice_line_ids),
+        #         'state_name': 'กรุงเทพมหานคร' if doc.partner_id.state_id.name == 'กรุงเทพ' else doc.partner_id.state_id.name,
+        #         'amout_bahttext': f"( {bahttext(doc.amount_total)} )"
+        #     })
+        
         return {
-              'doc_ids': docids,
-              'doc_model': 'account.move',
-              'docs': docs,
-              'data': data,
-              'some_code': self.some_code(docs.invoice_origin),
-              'inv_move_line': self.inv_move_line(docs.invoice_line_ids),
-              'state_name': 'กรุงเทพมหานคร' if docs.partner_id.state_id.name == 'กรุงเทพ' else docs.partner_id.state_id.name,
-              'amout_bahttext': f"( {bahttext(docs.amount_total)} )"
+                'doc_ids': docids,
+                'doc_model': 'account.move',
+                'docs': docs,
+                'data': data,
+                'some_code': self.some_code(docs.invoice_origin),
+                'inv_move_line': self.inv_move_line(docs.invoice_line_ids),
+                'state_name': 'กรุงเทพมหานคร' if docs.partner_id.state_id.name == 'กรุงเทพ' else docs.partner_id.state_id.name,
+                'amout_bahttext': f"( {bahttext(docs.amount_total)} )"       
         }
+
 
     def some_code(self, inv_id):
         rtn = self.env['sale.order'].search([('name', '=', inv_id)])
