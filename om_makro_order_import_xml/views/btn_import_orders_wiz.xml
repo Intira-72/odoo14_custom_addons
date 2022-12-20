@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   <data>
+       <record id="makro_orders_inherited_tree_view" model="ir.ui.view">
+           <field name="name">makro.orders.view.tree.inherit</field>
+           <field name="model">om_makro_order_import_xml.makro_orders</field>
+           <field name="inherit_id" ref="om_makro_order_import_xml.makro_orders_views"/>
+           <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                   <attribute name="js_class">button_import_orders</attribute>
+               </xpath>
+           </field>
+       </record>
+   </data>
+</odoo>

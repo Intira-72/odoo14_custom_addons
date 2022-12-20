@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+    
+        <record id="makro_products_view_tree" model="ir.ui.view">
+            <field name="name">makro_products.view.tree</field>
+            <field name="model">om_makro_order_import_xml.makro_products</field>
+            <field name="arch" type="xml">
+                <tree string="makro_products_tree">
+                    <field name="makro_code"/>
+                    <field name="name"/>
+                    <field name="create_uid" decoration-bf="1"/>
+                    <field name="create_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="makro_products_view_form" model="ir.ui.view">
+            <field name="name">makro_products.view.form</field>
+            <field name="model">om_makro_order_import_xml.makro_products</field>
+            <field name="arch" type="xml">
+                <form string="makro_products_form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="makro_code" />
+                                <field name="name" />
+                            </group>
+                            <group> 
+                                <field name="create_date" readonly="1"/>
+                                <field name="create_uid" readonly="1"/>                        
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Products">                        
+                                <field name="product_ids" widget="one2many">
+                                    <tree editable="bottom">
+                                        <field name="product_id" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+       <record id="makro_products_action" model="ir.actions.act_window">
+            <field name="name">Products</field>
+            <field name="res_model">om_makro_order_import_xml.makro_products</field>
+            <field name="view_mode">tree,form</field>
+       </record> 
+
+       <menuitem
+            id="makro_products_menu"
+            name="Products"
+            parent="om_makro_order_import_xml.makro_orders_menu"
+            sequence="4"
+            action="makro_products_action"
+        />  
+    </data>    
+</odoo>

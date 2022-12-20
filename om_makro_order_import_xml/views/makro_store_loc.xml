@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="makro_store_loc_view_tree" model="ir.ui.view">
+            <field name="name">makro_store_loc_view_tree.view.tree</field>
+            <field name="model">om_makro_order_import_xml.makro_store_loc</field>
+            <field name="arch" type="xml">
+                <tree string="makro_store_loc_tree"  editable="top">
+                    <field name="name"/>
+                    <field name="contact_id"/>
+                </tree>
+            </field>
+        </record>
+        
+       <record id="makro_store_loc_action" model="ir.actions.act_window">
+        <field name="name">Locations</field>
+        <field name="res_model">om_makro_order_import_xml.makro_store_loc</field>
+        <field name="view_mode">tree,form</field>
+       </record>
+
+      <menuitem
+        id="makro_store_loc_menu"
+        name="Locations"
+        parent="om_makro_order_import_xml.makro_orders_menu"
+        sequence="3"
+        action="makro_store_loc_action"
+      />
+    </data>    
+</odoo>

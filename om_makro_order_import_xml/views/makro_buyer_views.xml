@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <record id="makro_buyer_view_tree" model="ir.ui.view">
+      <field name="name">makro_buyer.view.tree</field>
+      <field name="model">om_makro_order_import_xml.makro_buyer</field>
+      <field name="arch" type="xml">
+        <tree string="makro_buyer_list" editable="top">
+          <field name="name"/>
+          <field name="company_id"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="makro_buyer_action" model="ir.actions.act_window">
+      <field name="name">Makro Buyer</field>
+      <field name="res_model">om_makro_order_import_xml.makro_buyer</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+   <menuitem
+    id="makro_buyer_menu"
+    name="Buyer"
+    parent="om_makro_order_import_xml.makro_orders_menu"
+    sequence="2"
+    action="makro_buyer_action"
+   />
+
+  </data>
+</odoo>
