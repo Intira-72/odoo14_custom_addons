@@ -30,14 +30,21 @@ class MakroImportOrdersWizard(models.TransientModel):
         rtn = self.env['om_makro_order_import_xml.makro_orders']
         buyer_id = self.env['om_makro_order_import_xml.makro_buyer'].search([('name', '=', data['buyer_code'])])
         location_id = self.env['om_makro_order_import_xml.makro_store_loc'].search([('name', '=', data['store_no'])])
-
-        order_id = rtn.create({'name': data['po_number'],
-                    'po_date': data['po_date'],
-                    'schedule_date': data['ship_to_date'],
-                    'buyer_id': buyer_id.id,
-                    'contact_id': location_id.id})  
-
-        return order_id
+        
+        try:
+            if location_id:
+                order_id = rtn.create({'name': data['po_number'],
+                            'po_date': data['po_date'],
+                            'schedule_date': data['ship_to_date'],
+                            'buyer_id': buyer_id.id,
+                            'contact_id': location_id.id,
+                            'payment_term': data['paymentterm']})  
+            else:
+                raise ValueError(_(f"PO No.{data['po_number']}:\n - Delivery address not found."))
+        except ValueError as err:
+            raise UserError(_(err))
+        else:
+            return order_id
 
 
     def _oder_line(self, file, order_no):
@@ -46,13 +53,18 @@ class MakroImportOrdersWizard(models.TransientModel):
 
         order_line = []
         for line in line_by_order.values:
-            product_id = self.env['om_makro_order_import_xml.makro_products'].search([('makro_code', '=', line[5])])
-            order_line.append((0, 0, {'product_id': product_id.id,
-                                'order_qty': line[10]}))
-        
-        order_no.write({'order_line_ids': order_line})
-
-        return True
+            try:
+                product_id = self.env['om_makro_order_import_xml.makro_products'].search([('makro_code', '=', line[5])])
+                if product_id:
+                    order_line.append((0, 0, {'product_id': product_id.id,
+                                        'order_qty': line[10]}))
+                else:
+                    raise ValueError(_(f"PO No. {order_no.name}:\n - [{line[5]}] {line[7]}\nProduct not found."))
+            except ValueError as err:
+               raise UserError(err)
+            else:        
+                order_no.write({'order_line_ids': order_line})
+                return True
 
 
     def action_import_orders(self):
@@ -65,7 +77,7 @@ class MakroImportOrdersWizard(models.TransientModel):
                     'po_date': order[3],
                     'ship_to_date': order[4],
                     'buyer_code': str(order[7]),
-                    'paymentterm': order[9]}
+                    }
 
             self._oder_line(file, self._create_order(data))         
         

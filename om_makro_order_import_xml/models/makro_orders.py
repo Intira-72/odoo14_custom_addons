@@ -13,6 +13,7 @@ class MakroOrders(models.Model):
     schedule_date = fields.Date("Schedule Date")
     buyer_id = fields.Many2one('om_makro_order_import_xml.makro_buyer', string="Buyer Code")   
     order_line_ids = fields.One2many('om_makro_order_import_xml.makro_order_line', 'm_order_id')
+    # payment_term = fields.Integer("Payment Term")
 
     def name_get(self):
         result = []            
