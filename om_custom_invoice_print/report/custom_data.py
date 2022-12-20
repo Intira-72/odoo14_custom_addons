@@ -30,17 +30,19 @@ class CustomInvoice(models.AbstractModel):
 
 
     def some_code(self, inv_id):
-        rtn = self.env['sale.order'].search([('name', '=', inv_id)])
-        return rtn.store_id.name
+        rtn = self.env['sale.order'].search([('name', '=', inv_id)]).m_data_file.buyer_id.name
+        return rtn
 
 
     def inv_move_line(self, invoice_line_ids):
         inv_list = []
 
         for inv in invoice_line_ids:
+            m_product_id = self.env['om_makro_order_import_xml.makro_products_maching_line'].search([('product_id', '=', inv.product_id.id)])
+
             data = {
-                'p_code': inv.product_id.default_code,
-                'p_name': inv.product_id.product_tmpl_id.name,
+                'p_code': m_product_id.m_product_id.makro_code,
+                'p_name': m_product_id.m_product_id.name,
                 'quantity': f"{inv.quantity:,.0f}",
                 'price_unit': f"{inv.price_unit:,.2f}",
                 'price_subtotal': f"{inv.price_subtotal:,.2f}",

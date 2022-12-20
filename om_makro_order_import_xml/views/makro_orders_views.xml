@@ -6,45 +6,39 @@
       <field name="model">om_makro_order_import_xml.makro_orders</field>
       <field name="arch" type="xml">
         <tree>
-          <field name="name" decoration-bf="1" />
-          <!-- <field name="po_date" />
-          <field name="schedule_date" />
-          
-          <field name="buyer_id" />      
-          <field name="contact_id" />     -->
+          <field name="name" decoration-bf="1" readonly="1" />
+          <field name="buyer_id" />
           <field name="create_uid" />
           <field name="create_date" />
         </tree>
       </field>
     </record>
 
-    <!-- <record id="makro_orders_view_form" model="ir.ui.view">
+    <record id="makro_orders_view_form" model="ir.ui.view">
       <field name="name">makro_orders.view.form</field>
       <field name="model">om_makro_order_import_xml.makro_orders</field>
       <field name="arch" type="xml">
         <form>
           <sheet>
-            <div class="oe_title">
-                <h1>
-                    <field name="name" readonly="1"/>
-                </h1>
-            </div>
             <group>
               <group>
-                <field name="contact_id" string="Customer"/>
+                <field name="name" string="File"/>
                 <field name="buyer_id" string="Company"/>
               </group>
               <group>
-                <field name="po_date" string="Date"/>
-                <field name="schedule_date" string="Schedule Date"/>
+                <field name="create_uid" string="Create By"/>
+                <field name="create_date" string="Create Date"/>
               </group>              
             </group>
             <notebook>
               <page string="Order Lines">
-                <field name="order_line_ids">
-                  <tree editable="bottom">
-                    <field name="product_id" string="Product"/>
-                    <field name="order_qty" string="Total"/>
+                <field name="order_ids">
+                  <tree>
+                    <field name="name" />
+                    <field name="date_order" />
+                    <field name="partner_id" />
+                    <field name="state" decoration-success="state == 'sale' or state == 'done'" decoration-info="state == 'draft' or state == 'sent'" widget="badge" optional="show" on_change="1" modifiers="{'readonly':true}"/>
+                    <!-- <field name="client_order_ref" string="Customer Reference"/> -->
                   </tree>
                 </field>
               </page>
@@ -52,7 +46,7 @@
           </sheet>
         </form>
       </field>
-    </record> -->
+    </record>
 
     <record model="ir.actions.act_window" id="makro_orders_action_window">
       <field name="name">Makro Orders</field>
@@ -61,7 +55,6 @@
     </record>
 
     <menuitem id="makro_orders_menu" name="Makro Orders" parent="sale.sale_menu_root" />
-    <menuitem id="orders_menu" name="Orders" parent="makro_orders_menu" />
-    <menuitem id="orders_menu_1" name="Orders" parent="orders_menu" sequence="1" action="makro_orders_action_window" />
+    <menuitem id="orders_menu_1" name="Orders" parent="makro_orders_menu" sequence="1" action="makro_orders_action_window" />
   </data>
 </odoo>

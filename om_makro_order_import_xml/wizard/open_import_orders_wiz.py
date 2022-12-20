@@ -96,9 +96,12 @@ class MakroImportOrdersWizard(models.TransientModel):
         return se_product_id['pid']
 
 
-    def _upload_list(self):
+    def _upload_list(self, order_ids, buyer_id):
+        print(buyer_id)
         rtn = self.env['om_makro_order_import_xml.makro_orders']
-        return rtn.create({'name': self.file_name})
+        return rtn.create({'name': self.file_name,
+                            'order_ids': [(4, i) for i in order_ids],
+                            'buyer_id': buyer_id})
 
 
     def action_import_orders(self):
@@ -106,6 +109,8 @@ class MakroImportOrdersWizard(models.TransientModel):
 
         if file:
             order_datas = pd.read_xml(BytesIO(base64.b64decode(file.datas)), xpath=".//POHEADER")
+            order_ids = []
+            buyer_id = ''
             for order in order_datas.values:
                 data = {'store_no': order[1],
                         'po_number': str(order[2]),
@@ -113,10 +118,14 @@ class MakroImportOrdersWizard(models.TransientModel):
                         'ship_to_date': order[4],
                         'buyer_code': str(order[7]),
                         }
+                order_id = self._create_order(data)
+                self._oder_line(file, order_id)         
+                order_ids.append(order_id.id)
 
-                self._oder_line(file, self._create_order(data))         
-            
-            self._upload_list()
+                if buyer_id == '':
+                    buyer_id = str(order[7])
+
+            self._upload_list(order_ids, self.env['om_makro_order_import_xml.makro_buyer'].search([('name', '=', buyer_id)]).id)
             file.unlink()
 
             return {

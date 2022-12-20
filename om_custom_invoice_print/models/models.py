@@ -31,20 +31,21 @@ class AccountMoveInherit(models.Model):
 
     @api.model
     def create(self, vals_list):
-  
+        company_id = self.env['sale.order'].search([('name', '=', vals_list['invoice_origin'])]).m_data_file.buyer_id.company_id.id
+        
         if self.custom_name == False:
             active_company = self._context.get('allowed_company_ids')[0]
 
-            date_code = TH_TODAY_DATE if active_company == 1 else TODAY_DATE
-            gen_inv_no = self._generate_inv_no(date_code.strftime('%y%m%d'))      
+            date_code = TH_TODAY_DATE if (company_id if company_id else active_company) == 1 else TODAY_DATE                  
 
             vals_list['invoice_date'] = TODAY_DATE
-            vals_list['inv_to_company'] = active_company                
-
-            if active_company == 1:                
-                vals_list['custom_name'] = f"{date_code.strftime('%y%m%d')}{gen_inv_no:02}"
+            if company_id:
+                vals_list['inv_to_company'] = company_id  
             else:
-                vals_list['custom_name'] = f"{date_code.strftime('%y%m%d')}{gen_inv_no:02}"
+                vals_list['inv_to_company'] = active_company          
+
+            gen_inv_no = self._generate_inv_no(date_code.strftime('%y%m%d'))
+            vals_list['custom_name'] = f"{date_code.strftime('%y%m%d')}{gen_inv_no:02}"
 
         return super().create(vals_list)
 
