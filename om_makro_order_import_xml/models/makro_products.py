@@ -24,3 +24,5 @@ class MatchingProducts(models.Model):
 
     m_product_id = fields.Many2one('om_makro_order_import_xml.makro_products')
     product_id = fields.Many2one('product.product', required=True)
+
+    

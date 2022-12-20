@@ -7,18 +7,18 @@
       <field name="arch" type="xml">
         <tree>
           <field name="name" decoration-bf="1" />
-          <field name="po_date" />
+          <!-- <field name="po_date" />
           <field name="schedule_date" />
           
           <field name="buyer_id" />      
-          <field name="contact_id" />    
+          <field name="contact_id" />     -->
           <field name="create_uid" />
           <field name="create_date" />
         </tree>
       </field>
     </record>
 
-    <record id="makro_orders_view_form" model="ir.ui.view">
+    <!-- <record id="makro_orders_view_form" model="ir.ui.view">
       <field name="name">makro_orders.view.form</field>
       <field name="model">om_makro_order_import_xml.makro_orders</field>
       <field name="arch" type="xml">
@@ -52,7 +52,7 @@
           </sheet>
         </form>
       </field>
-    </record>
+    </record> -->
 
     <record model="ir.actions.act_window" id="makro_orders_action_window">
       <field name="name">Makro Orders</field>
