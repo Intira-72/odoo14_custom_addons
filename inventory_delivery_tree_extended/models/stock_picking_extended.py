@@ -22,13 +22,14 @@ class StockPicking(models.Model):
                 ori.customer_ref = cus_ref.client_order_ref
                 ori.store = cus_ref.store_id.id
             else:
-                ori.customer_ref = ''
+                ori.customer_ref = False
 
     
     def _search_ref(self, operator, value):   
         picking_type = self.env.context.get('active_id', False)
 
         ids = []
+        
         if picking_type == 1:
             rtn = self.env['purchase.order'].search([('partner_ref', 'ilike', value)])
         elif picking_type == 2:
@@ -36,6 +37,6 @@ class StockPicking(models.Model):
 
         for r in rtn:
                 for i in r:
-                    ids.append(self.search([('origin', '=', i.name)]).id)
-
+                    [ids.append(o.id) for o in self.search([('origin', '=', i.name)])]
+        
         return [('id', 'in', ids)]
