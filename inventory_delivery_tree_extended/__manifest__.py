@@ -9,7 +9,7 @@
     """,
     'author': "H.Dev",
     'category': 'Inventory',
-    'version': '0.3',
+    'version': '0.4',
     'depends': ['base', 'stock', 'sale', 'purchase'],
     'data': [
         # 'security/ir.model.access.csv',

@@ -13,6 +13,7 @@
         'views/stock_minimum.xml',
         'views/assets.xml',
         'views/minimum_check_btn.xml',
+        'wizard/purchase_order_wiz.xml',
     ],
     'demo': [],
     'qweb': [

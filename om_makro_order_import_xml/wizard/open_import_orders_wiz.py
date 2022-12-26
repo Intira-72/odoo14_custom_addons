@@ -34,13 +34,15 @@ class MakroImportOrdersWizard(models.TransientModel):
         rtn = self.env['sale.order']
         buyer_id = self.env['om_makro_order_import_xml.makro_buyer'].search([('name', '=', data['buyer_code'])])
         location_id = self.env['om_makro_order_import_xml.makro_store_loc'].search([('name', '=', data['store_no'])])
+        payment_term_id = self.env['account.payment.term'].search([('name', '=', data['paymentterm'])])
         
         try:
             if location_id:
                 sale_order = {'client_order_ref': data['po_number'],
                                 'date_order': data['po_date'],
                                 'commitment_date': data['ship_to_date'],
-                                'partner_id': location_id.contact_id.id}
+                                'partner_id': location_id.contact_id.id,
+                                'payment_term_id': payment_term_id.id}
 
                 order_id = rtn.create(sale_order)  
             else:
@@ -117,6 +119,7 @@ class MakroImportOrdersWizard(models.TransientModel):
                         'po_date': order[3],
                         'ship_to_date': order[4],
                         'buyer_code': str(order[7]),
+                        'paymentterm': f'{order[9]} Days',
                         }
                 order_id = self._create_order(data)
                 self._oder_line(file, order_id)         

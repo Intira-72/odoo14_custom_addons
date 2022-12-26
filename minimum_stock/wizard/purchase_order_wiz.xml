@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="purchase_order_form_wiz" model="ir.ui.view">
+        <field name="name">purchase.order.form.wiz</field>
+        <field name="model">minimum_stock.purchase_order_wiz</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="product_id" />
+                            <field name="partner_id" />                            
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="required_amount" 
+                            decoration-bf="1"                            
+                            decoration-success="order_all_qty &gt; required_amount"
+                            decoration-danger="order_all_qty &lt; required_amount"                         
+                             />
+                            <field name="order_limit" />
+                        </group>
+                        <group>
+                            <field name="order_all_qty" />
+                            <field name="count_order" />                            
+                        </group>                        
+                    </group>
+                    <footer>
+                        <button string="Create PO" type="object" class="btn btn-primary" name="action_create_purchase_order" />
+                        <button string="Cancel" special="cancel" />
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <act_window name="Create Purchase Orders"
+        id="create_purchase_order_wiz"
+        res_model="minimum_stock.purchase_order_wiz"
+        binding_model="below.stock"
+        binding_views="form"
+        view_mode="form"
+        target="new"
+    /> 
+</odoo>

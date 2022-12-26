@@ -6,6 +6,7 @@ from odoo import models, fields, api
 class MakroOrders(models.Model):
     _name = 'om_makro_order_import_xml.makro_orders'
     _description = 'om_makro_order_import_xml.makro_orders'
+    _order = 'id desc'
 
     name = fields.Char("File Name")
     buyer_id = fields.Many2one('om_makro_order_import_xml.makro_buyer')
