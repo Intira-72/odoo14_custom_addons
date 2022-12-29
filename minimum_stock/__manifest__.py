@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': "Minimum Stock Management",
-    'version': "14.0.1",
+    'version': "0.2",
     'summery': "Minimum Stock module tree views",
     'sequence': 10,
     'description': """Minimum Stock module tree views""",
