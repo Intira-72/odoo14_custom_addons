@@ -1,6 +1,17 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
     <data>
+      <!-- Search View -->
+      <record model="ir.ui.view" id="makro_product_views_search">
+        <field name="name">makro.product.views.search</field>
+        <field name="model">om_makro_order_import_xml.makro_products</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="makro_code" string="Code"/>
+                <field name="name" string="Product"/>
+            </search>
+        </field>
+      </record>
     
         <record id="makro_products_view_tree" model="ir.ui.view">
             <field name="name">makro_products.view.tree</field>

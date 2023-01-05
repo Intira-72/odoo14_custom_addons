@@ -56,6 +56,7 @@
     </record>
 
     <menuitem id="makro_orders_menu" name="Makro Orders" parent="sale.sale_menu_root" />
-    <menuitem id="orders_menu_1" name="Orders" parent="makro_orders_menu" sequence="1" action="makro_orders_action_window" />
+    <menuitem id="orders_main_menu" name="Orders" parent="makro_orders_menu" sequence="1" />
+    <menuitem id="orders_menu_1" name="Orders" parent="orders_main_menu" sequence="1" action="makro_orders_action_window" />
   </data>
 </odoo>
