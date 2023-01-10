@@ -84,11 +84,12 @@ class MakroImportOrdersWizard(models.TransientModel):
         se_product_id = {}
 
         for product_id in product_ids:
-            quants = self.env['stock.quant'].search([('product_id', '=', product_id.id), ('quantity', '>', 0), ('on_hand', '=', True)])           
+            quants = self.env['stock.quant'].search([('product_id', '=', product_id.product_id.id), ('quantity', '>', 0), ('on_hand', '=', True)])           
             
-            if quants:
+            if len(quants) > 0:
                 pid = 0
                 sum_s = 0
+                
                 for quant in quants:
                     pid = quant.product_id.id
                     sum_s += quant.quantity
@@ -100,8 +101,8 @@ class MakroImportOrdersWizard(models.TransientModel):
                         se_product_id = {'pid': pid, 'sum_s': sum_s}
             else:
                 if product_ids:
-                    se_product_id = {'pid': product_ids[0].id, 'sum_s': 0}
-
+                    se_product_id = {'pid': product_ids[0].product_id.id, 'sum_s': 0}
+        
         return se_product_id['pid']
 
 
@@ -143,7 +144,7 @@ class MakroImportOrdersWizard(models.TransientModel):
                                 'product_uom_qty': line.find('ORDERQUANTITY').text
                             }
                             self._oder_line(order_line)
-
+                        order_ids.append(order_id.id)
                 self._upload_list(order_ids, self.env['om_makro_order_import_xml.makro_buyer'].search([('name', '=', po.find('BUYERINTERNALCODE').text,)]).id)
             else:
                raise UserError(err_msg)        
