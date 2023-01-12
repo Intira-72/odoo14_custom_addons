@@ -49,7 +49,7 @@
         </field>
     </record>
 
-    <record id="stock.product_template_action_product" model="ir.actions.act_window">
+    <!-- <record id="stock.product_template_action_product" model="ir.actions.act_window">
         <field name="view_mode">tree,kanban,form</field>
-    </record>
+    </record> -->
 </odoo>
