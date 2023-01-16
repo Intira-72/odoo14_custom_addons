@@ -1,20 +1,18 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Real Estate",
+    'name': "Estate",
     'summary': """""",
     'description': """""",
-    'author': "My Dev",
-    'website': "",
-    'category': 'Custom',
-    'version': '0.1',    
+    'author': "IV",
+    'category': '',
+    'version': '0.1',
     'depends': ['base'],
     'data': [
-        # 'security/ir.model.access.csv',
-        'views/views.xml',
-        'views/templates.xml',
+        'security/ir.model.access.csv',
     ],
-    'demo': [
-        'demo/demo.xml',
-    ],
+    'demo': [],
+    'qweb': [],
+    'installable': True,
     'application': True,
+    'auto_install': False,
 }
