@@ -2,11 +2,11 @@
 {
     'name': "Makro Order Import (XML)",
     'summary': """Upload data of sale orders list from Makro (xml file)""",
-    'description': """Add Search Views""",
+    'description': """Fixed stock calculation method""",
     'author': "Dev",
     'website': "",
     'category': 'Sales',
-    'version': '0.2',
+    'version': '0.3',
     'depends': ['base', 'sale'],
     'data': [
         'security/ir.model.access.csv',

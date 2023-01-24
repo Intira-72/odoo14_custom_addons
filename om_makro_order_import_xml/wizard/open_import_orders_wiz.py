@@ -81,29 +81,19 @@ class MakroImportOrdersWizard(models.TransientModel):
 
 
     def _auto_select_product_the_mose(self, product_ids):
-        se_product_id = {}
+        p_stock_list = {}
+        re_product_id = 0
 
         for product_id in product_ids:
-            quants = self.env['stock.quant'].search([('product_id', '=', product_id.product_id.id), ('quantity', '>', 0), ('on_hand', '=', True)])           
+            quants = self.env['stock.quant'].search([('product_id', '=', product_id.product_id.id), ('available_quantity', '>', 0), ('on_hand', '=', True)])           
             
-            if len(quants) > 0:
-                pid = 0
-                sum_s = 0
-                
-                for quant in quants:
-                    pid = quant.product_id.id
-                    sum_s += quant.quantity
-        
-                if se_product_id == {}:
-                    se_product_id = {'pid': pid, 'sum_s': sum_s}
+            for quant in quants:
+                if quant.product_id.id in p_stock_list.keys():
+                    p_stock_list[quant.product_id.id] += quant.available_quantity
                 else:
-                    if se_product_id['sum_s'] < sum_s:
-                        se_product_id = {'pid': pid, 'sum_s': sum_s}
-            else:
-                if product_ids:
-                    se_product_id = {'pid': product_ids[0].product_id.id, 'sum_s': 0}
-        
-        return se_product_id['pid']
+                    p_stock_list[quant.product_id.id] = quant.available_quantity
+
+        return max(p_stock_list, key=p_stock_list.get)
 
 
     def _upload_list(self, order_ids, buyer_id):
