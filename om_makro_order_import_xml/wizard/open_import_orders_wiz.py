@@ -93,8 +93,7 @@ class MakroImportOrdersWizard(models.TransientModel):
                 else:
                     p_stock_list[quant.product_id.id] = quant.available_quantity
 
-        return max(p_stock_list, key=p_stock_list.get)
-
+        return product_id[0].product_id.id if not p_stock_list else max(p_stock_list, key=p_stock_list.get)
 
     def _upload_list(self, order_ids, buyer_id):
         rtn = self.env['om_makro_order_import_xml.makro_orders']
