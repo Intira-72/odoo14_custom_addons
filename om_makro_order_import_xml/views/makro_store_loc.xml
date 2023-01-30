@@ -1,13 +1,28 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
     <data>
+        <record model="ir.ui.view" id="makro_location_search_view">
+            <field name="name">makro.location.search.view</field>
+            <field name="model">om_makro_order_import_xml.makro_store_loc</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="contact_id"/>
+                    <group>
+                        <filter name="zone_id" string="Zone" context="{'group_by':'zone_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
         <record id="makro_store_loc_view_tree" model="ir.ui.view">
             <field name="name">makro_store_loc_view_tree.view.tree</field>
             <field name="model">om_makro_order_import_xml.makro_store_loc</field>
             <field name="arch" type="xml">
                 <tree string="makro_store_loc_tree"  editable="top">
-                    <field name="name"/>
-                    <field name="contact_id"/>
+                    <field name="name" width="80px" optional="show" />
+                    <field name="contact_id" optional="show" />
+                    <field name="zone_id" width="200px" optional="show" />
                 </tree>
             </field>
         </record>
@@ -22,7 +37,7 @@
         id="makro_store_loc_menu"
         name="Locations"
         parent="om_makro_order_import_xml.makro_orders_menu"
-        sequence="3"
+        sequence="5"
         action="makro_store_loc_action"
       />
     </data>    

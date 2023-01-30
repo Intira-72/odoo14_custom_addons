@@ -5,6 +5,7 @@ from odoo import models, fields, api, _
 
 class SaleOrderLine(models.Model):   
     _inherit = "sale.order.line"
+    _order = "id"
     
     order_ids = fields.Char('Order Reference', related='order_id.name', store=True)
     customer_ref = fields.Char('Customer Reference', related='order_id.client_order_ref', store=True)

@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <report
+        id="report_requisition_xlsx"
+        string="Requisition (XLSX)"
+        model="makro.requisition"
+        report_type="xlsx"
+        name="om_makro_order_import_xml.report_requisition_xlsx"
+        file="Requisition"
+    />
+</odoo>

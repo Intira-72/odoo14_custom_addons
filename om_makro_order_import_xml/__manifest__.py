@@ -14,13 +14,13 @@
         'views/makro_buyer_views.xml',
         'views/makro_store_loc.xml',
         'views/makro_products_views.xml',
+        'views/makro_requisition_views.xml',
         'views/btn_import_orders_wiz.xml',
         'views/asset.xml',
         'wizard/open_import_orders.xml',
+        'reports/report.xml',
     ],
-    'demo': [
-        'demo/demo.xml',
-    ],
+    'demo': [],
     'qweb': [
         "static/src/xml/btn_makro_import_orders.xml",
     ],

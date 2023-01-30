@@ -22,7 +22,7 @@
     id="makro_buyer_menu"
     name="Buyer"
     parent="om_makro_order_import_xml.makro_orders_menu"
-    sequence="2"
+    sequence="4"
     action="makro_buyer_action"
    />
 
