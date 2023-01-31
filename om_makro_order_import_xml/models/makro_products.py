@@ -25,7 +25,7 @@ class MatchingProducts(models.Model):
     brand = fields.Char("Brand")
     series = fields.Char("Model")
     m_product_id = fields.Many2one('om_makro_order_import_xml.makro_products')
-    product_id = fields.Many2one('product.product', readonly=True, required=True)
+    product_id = fields.Many2one('product.product', required=True)
 
 
     

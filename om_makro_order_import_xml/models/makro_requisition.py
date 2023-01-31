@@ -17,12 +17,14 @@ class MakroRequisition(models.Model):
         last_day = DATETIME_NOW.replace(month=DATETIME_NOW.month+1, day=1) - timedelta(days=1)
 
         try:
-            get_last = self.env['makro.requisition'].search([('create_date', '>=', first_day.date()), ('create_date', '<=', last_day.date())])
+            get_last = self.env['makro.requisition'].search([('create_date', '>=', first_day.date()), ('create_date', '<=', last_day.date())], order='create_date desc', limit=1)
             
             last_no = int(get_last.name[4:])
             digit_count = len(str(last_no))
             new_no = str(last_no + 1) if digit_count == 3 else "0"*(3 - digit_count) + str(last_no + 1)
         except TypeError:
+            return DATETIME_NOW.strftime("%y%m") + "001"
+        except IndexError:
             return DATETIME_NOW.strftime("%y%m") + "001"
         else:            
             return DATETIME_NOW.strftime("%y%m") + new_no

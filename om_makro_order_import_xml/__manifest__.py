@@ -6,7 +6,7 @@
     'author': "Dev",
     'website': "",
     'category': 'Sales',
-    'version': '0.4',
+    'version': '0.5',
     'depends': ['base', 'sale'],
     'data': [
         'security/ir.model.access.csv',

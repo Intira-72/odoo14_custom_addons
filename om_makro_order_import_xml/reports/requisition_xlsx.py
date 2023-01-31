@@ -11,7 +11,7 @@ class RequisitionReportXLSX(models.AbstractModel):
 
         for order in order_lines:
             if order.product_id.id not in [i['id'] for i in product_lists]:
-                m_info = self.env['om_makro_order_import_xml.makro_products_maching_line'].search([('product_id', '=', order.product_id.id)])
+                m_info = self.env['om_makro_order_import_xml.makro_products_maching_line'].search([('product_id', '=', order.product_id.id)], order='create_date desc', limit=1)
 
                 product_lists.append({'id': order.product_id.id,
                                     'name': {
