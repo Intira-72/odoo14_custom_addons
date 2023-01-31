@@ -20,7 +20,7 @@ class MakroRequisition(models.Model):
             get_last = self.env['makro.requisition'].search([('create_date', '>=', first_day.date()), ('create_date', '<=', last_day.date())], order='create_date desc', limit=1)
             
             last_no = int(get_last.name[4:])
-            digit_count = len(str(last_no))
+            digit_count = len(str(last_no)) if last_no != 9 else len(str(last_no)) + 1
             new_no = str(last_no + 1) if digit_count == 3 else "0"*(3 - digit_count) + str(last_no + 1)
         except TypeError:
             return DATETIME_NOW.strftime("%y%m") + "001"
