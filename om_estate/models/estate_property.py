@@ -26,4 +26,5 @@ class EstateProperty(models.Model):
                                                         ('east', 'East'),
                                                         ('west', 'West')],
                                             help="")
+    active = fields.Boolean(default=False)
         
