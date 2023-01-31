@@ -1,6 +1,5 @@
 from odoo import models
 
-
 class RequisitionReportXLSX(models.AbstractModel):
     _name = 'report.om_makro_order_import_xml.report_requisition_xlsx'
     _inherit = 'report.report_xlsx.abstract'
@@ -22,7 +21,7 @@ class RequisitionReportXLSX(models.AbstractModel):
                                     }})
 
         data = {
-            'date': ids.create_date.strftime('%d/%m/%Y'),
+            'date': ids.create_date.replace(hour=ids.create_date.hour+7).strftime('%d/%m/%Y %H:%M'),
             'code_no': int(ids.name),
             'scheduled_date': ids.delivery_date.strftime('%d/%m/%Y'),
             'zone': "MK-" + ids.zone_id.name,
