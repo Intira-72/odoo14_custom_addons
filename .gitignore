@@ -1,5 +1,8 @@
-# compiled python files
+
+
 *.py[co]
+*.pyc
 __pycache__/
 
-*.pyc
+
+
