@@ -1,7 +1,4 @@
 from odoo import models, fields, api
-from odoo.exceptions import ValidationError
-from odoo.tools import date_utils
-
 from datetime import datetime, timedelta
 
 DATETIME_NOW = datetime.now()
@@ -33,6 +30,7 @@ class MakroRequisition(models.Model):
     delivery_date = fields.Datetime("Scheduled Date", required=True, default=fields.Datetime.now)
     zone_id = fields.Many2one('makro.location_zone', string="Zone", default=1, required=True)
     order_ids = fields.Many2many('sale.order', 'makro_requisition_sale_order_rel', 'order_id', 'requisition_id', string="Order Line")
+    active = fields.Boolean(default=True)
 
     def show_orders(self):
         partner_ids = self.env['om_makro_order_import_xml.makro_store_loc'].search([('zone_id', "=", self.zone_id.id)])
