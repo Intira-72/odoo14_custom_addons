@@ -11,6 +11,7 @@
             <field name="bedrooms"/>
             <field name="living_area"/>
             <field name="facades"/>
+            <field name="property_type_id" />
 
             <filter name="state" string="New" domain="[('state', '=', 'new')]"/>
             <filter name="state" string="Offer Received" domain="[('state', '=', 'received')]"/>
@@ -42,8 +43,11 @@
       <field name="arch" type="xml">
          <form string="estate_property_form">
             <sheet>
-               <group>
+               <div>
                   <h1><field name="name" /></h1>
+               </div>
+               <group>                                    
+                  <field name="tag_ids" widget="many2many_tags" nolabel="1" />
                </group>
                <group>
                   <group>
@@ -73,9 +77,9 @@
                   </page>
                   <page name="other_info" string="Other Info">
                      <group>
-                        <group>
-                           <field name="partner_id" string="Salesman" />
-                           <field name="user_id" string="Buyer" />
+                        <group>                           
+                           <field name="user_id" />
+                           <field name="partner_id" />
                         </group>
                      </group>
                   </page>

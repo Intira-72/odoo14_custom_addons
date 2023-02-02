@@ -26,4 +26,11 @@
     parent="estate_settings_menu"
     action="estate_property_type_action"
   />
+
+  <menuitem
+    id="estate_properites_tag_menu"
+    name="Property Tags"
+    parent="estate_settings_menu"
+    action="estate_property_tag_action"
+  />
 </odoo>
