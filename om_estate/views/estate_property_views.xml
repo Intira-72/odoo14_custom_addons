@@ -75,6 +75,11 @@
                         </group>
                      </group>
                   </page>
+                  <page name="property_offer" string="Offer">
+                     <group>
+                        <field name="offer_ids"  nolabel="1" />
+                     </group>
+                  </page>
                   <page name="other_info" string="Other Info">
                      <group>
                         <group>                           
