@@ -6,10 +6,24 @@
     name="Advertisements"
     parent="estate_menus_root"
    />
+
+   <menuitem
+    id="estate_settings_menu"
+    name="Settings"
+    parent="estate_menus_root"
+   />
+
   <menuitem
     id="estate_properites_menu"
     name="Properites"
     parent="estate_advertisements_menu"
     action="estate_property_action"
+  />
+
+  <menuitem
+    id="estate_properites_type_menu"
+    name="Property Type"
+    parent="estate_settings_menu"
+    action="estate_property_type_action"
   />
 </odoo>
