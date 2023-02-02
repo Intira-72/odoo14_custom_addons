@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+# from odoo import models, fields, api
 
 
-class custom_sale_tree_view(models.Model):
-    _name = 'custom_sale_tree_view.custom_sale_tree_view'
-    _description = 'custom_sale_tree_view.custom_sale_tree_view'
+# class custom_sale_tree_view(models.Model):
+#     _name = 'custom_sale_tree_view.custom_sale_tree_view'
+#     _description = 'custom_sale_tree_view.custom_sale_tree_view'
 
 #     name = fields.Char()
 #     value = fields.Integer()
