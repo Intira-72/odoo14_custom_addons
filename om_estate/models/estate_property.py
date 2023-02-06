@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models
+from odoo import fields, models, api
 
 
 class EstateProperty(models.Model):
@@ -39,3 +39,16 @@ class EstateProperty(models.Model):
 
     tag_ids = fields.Many2many('estate.property.tag')
     offer_ids = fields.One2many('estate.property.offer', 'property_id')
+
+    total_area = fields.Float(string="Total Area (sqm)", compute='_compute_total_area')
+    best_price = fields.Float(string="Best Offer", compute='_compute_best_price')
+
+    @api.depends('living_area', 'garden_area')
+    def _compute_total_area(self):
+        for rec in self:
+            rec.total_area = self.living_area + self.garden_area
+
+    @api.depends('offer_ids')
+    def _compute_best_price(self):
+        for rec in self:
+            rec.best_price = max(self.offer_ids.mapped('price'))
