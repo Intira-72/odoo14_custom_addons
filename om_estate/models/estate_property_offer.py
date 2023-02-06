@@ -1,6 +1,7 @@
 from odoo import fields, models, api, _
 from datetime import datetime, timedelta
-from odoo.exceptions import UserError
+from odoo.exceptions import ValidationError
+
 
 class EstatePropertyOffer(models.Model):
     _name = "estate.property.offer"
@@ -29,16 +30,13 @@ class EstatePropertyOffer(models.Model):
 
     def action_accepted(self):
         for rec in self:
-            if 'accepted' not in [r.status for r in rec.property_id.offer_ids]:
-                rec.status = 'accepted'
-                rec.property_id.selling_price = rec.price
-                rec.property_id.partner_id = rec.partner_id
+            rec.status = 'accepted'
+            rec.property_id.selling_price = rec.price
+            rec.property_id.partner_id = rec.partner_id
 
-                for offer in rec.property_id.offer_ids:
-                    if offer.id != rec.id:
-                        offer.status = 'refused'
-            else:
-                raise UserError(_("One of the previously accepted offers, please check."))
+            for offer in rec.property_id.offer_ids:
+                if offer.id != rec.id:
+                    offer.status = 'refused'
 
         return True
     
@@ -48,4 +46,15 @@ class EstatePropertyOffer(models.Model):
             rec.property_id.selling_price = 0
             rec.property_id.partner_id = False
 
+        return True
+    
+
+    @api.constrains('status')
+    def _check_selling_price(self):
+        for rec in self:
+            selling = (rec.property_id.expected_price * 90) / 100
+
+            if rec.price < selling and rec.status == 'accepted':
+                raise ValidationError(f"The selling price must be greater than 90% of the expected price.")
+            
         return True

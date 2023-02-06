@@ -4,11 +4,11 @@
 from odoo import fields, models, api, _
 from odoo.exceptions import UserError
 
+
 class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "estate.property"
     _sql_constraints = [('check_expected_price', 'CHECK(expected_price > 0)', 'A property Expected Price must be strictly positive'),
-                        ('check_selling_price', 'CHECK(selling_price > 0)', 'A property Selling Price must be strictly positive'),
                         ('unique_name_and_property_type', 'UNIQUE(name, property_type_id)', 'A property tag name and property type name must be unique')]
 
 
@@ -84,6 +84,7 @@ class EstateProperty(models.Model):
             else:
                 raise UserError('Canceled properties cannot be sold.')
         return True
+
 
 
 
