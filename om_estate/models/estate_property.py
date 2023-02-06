@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models, api
-
+from odoo import fields, models, api, _
+from odoo.exceptions import UserError
 
 class EstateProperty(models.Model):
     _name = "estate.property"
@@ -43,6 +43,7 @@ class EstateProperty(models.Model):
     total_area = fields.Float(string="Total Area (sqm)", compute='_compute_total_area')
     best_price = fields.Float(string="Best Offer", compute='_compute_best_price')
 
+
     @api.depends('living_area', 'garden_area')
     def _compute_total_area(self):
         for rec in self:
@@ -53,9 +54,28 @@ class EstateProperty(models.Model):
         for rec in self:
             rec.best_price = max(self.offer_ids.mapped('price'))
 
+
     @api.onchange('garden')
     def _onchange_garden(self):
         self.garden_area = 10 if self.garden else 0
         self.garden_orientation = 'north' if self.garden else False
+
+
+    def action_sold(self):
+        for rec in self:
+            if rec.state != 'canceled':
+                rec.state = 'sold'                
+            else:
+                raise UserError('Sold properties cannot be conceled.')       
+        return True
+    
+    def action_canceled(self):
+        for rec in self:
+            if rec.state != 'sold':
+                rec.state = 'canceled'                
+            else:
+                raise UserError('Canceled properties cannot be sold.')
+        return True
+
 
 
