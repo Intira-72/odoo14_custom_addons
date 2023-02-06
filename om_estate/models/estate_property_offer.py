@@ -1,10 +1,11 @@
 from odoo import fields, models, api, _
-from datetime import timedelta
+from datetime import datetime, timedelta
 from odoo.exceptions import UserError
 
 class EstatePropertyOffer(models.Model):
     _name = "estate.property.offer"
     _description = "estate.property.offer"
+    _sql_constraints = [('check_price', 'CHECK(price > 0)', 'A property Price must be strictly positive')]
 
     price = fields.Float()
     status = fields.Selection(selection=[('accepted', 'Accepted'), ('refused', 'Refused')], copy=True)
@@ -16,7 +17,10 @@ class EstatePropertyOffer(models.Model):
     @api.depends('validity')
     def _compute_date_deadline(self):
         for rec in self:
-            rec.date_deadline = rec.create_date.date() + timedelta(days=rec.validity)
+            try:
+                rec.date_deadline = rec.create_date.date() + timedelta(days=rec.validity)
+            except AttributeError:
+                rec.date_deadline = datetime.today() + timedelta(days=rec.validity)
 
     def _inverse_date_deadline(self):
         for rec in self:

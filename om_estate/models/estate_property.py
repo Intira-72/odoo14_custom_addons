@@ -7,6 +7,10 @@ from odoo.exceptions import UserError
 class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "estate.property"
+    _sql_constraints = [('check_expected_price', 'CHECK(expected_price > 0)', 'A property Expected Price must be strictly positive'),
+                        ('check_selling_price', 'CHECK(selling_price > 0)', 'A property Selling Price must be strictly positive'),
+                        ('unique_name_and_property_type', 'UNIQUE(name, property_type_id)', 'A property tag name and property type name must be unique')]
+
 
     name = fields.Char(string="Name", required=True)
     description = fields.Text("Description")
@@ -43,6 +47,7 @@ class EstateProperty(models.Model):
     total_area = fields.Float(string="Total Area (sqm)", compute='_compute_total_area')
     best_price = fields.Float(string="Best Offer", compute='_compute_best_price')
 
+    
 
     @api.depends('living_area', 'garden_area')
     def _compute_total_area(self):
@@ -52,7 +57,10 @@ class EstateProperty(models.Model):
     @api.depends('offer_ids')
     def _compute_best_price(self):
         for rec in self:
-            rec.best_price = max(self.offer_ids.mapped('price'))
+            try:
+                rec.best_price = max(self.offer_ids.mapped('price'))
+            except ValueError:
+                rec.best_price = 0
 
 
     @api.onchange('garden')
