@@ -10,6 +10,7 @@ class EstateProperty(models.Model):
     _description = "estate.property"
     _sql_constraints = [('check_expected_price', 'CHECK(expected_price > 0)', 'A property Expected Price must be strictly positive'),
                         ('unique_name_and_property_type', 'UNIQUE(name, property_type_id)', 'A property tag name and property type name must be unique')]
+    _order = "id desc"
 
 
     name = fields.Char(string="Name", required=True)

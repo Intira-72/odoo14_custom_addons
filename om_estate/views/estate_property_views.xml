@@ -43,8 +43,9 @@
       <field name="arch" type="xml">
          <form string="estate_property_form">
             <header>
-               <button string="Sold" name="action_sold" type="object" class="oe_highlight"/>
-               <button string="Cancel" name="action_canceled" type="object"/>
+               <button string="Sold" name="action_sold" states="sold" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['sold', 'canceled'])]}"/>
+               <button string="Cancel" name="action_canceled" type="object" attrs="{'invisible': [('state', 'in', ['sold', 'canceled'])]}" />
+               <field name="state" widget="statusbar" statusbar_visible="new,received,accepted,sold"/>
             </header>
             <sheet>
                <div>
@@ -55,7 +56,6 @@
                </group>
                <group>
                   <group>
-                     <field name="state" />
                      <field name="property_type_id" />
                      <field name="postcode" />
                      <field name="date_availability" />
@@ -82,7 +82,7 @@
                         </group>
                      </group>
                   </page>
-                  <page name="property_offer" string="Offer">
+                  <page name="property_offer" string="Offers">
                      <group>
                         <field name="offer_ids"  nolabel="1" />
                      </group>

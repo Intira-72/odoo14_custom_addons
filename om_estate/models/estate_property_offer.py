@@ -7,6 +7,7 @@ class EstatePropertyOffer(models.Model):
     _name = "estate.property.offer"
     _description = "estate.property.offer"
     _sql_constraints = [('check_price', 'CHECK(price > 0)', 'A property Price must be strictly positive')]
+    _order = "price desc"
 
     price = fields.Float()
     status = fields.Selection(selection=[('accepted', 'Accepted'), ('refused', 'Refused')], copy=True)
@@ -33,6 +34,7 @@ class EstatePropertyOffer(models.Model):
             rec.status = 'accepted'
             rec.property_id.selling_price = rec.price
             rec.property_id.partner_id = rec.partner_id
+            rec.property_id.state = 'accepted'
 
             for offer in rec.property_id.offer_ids:
                 if offer.id != rec.id:
