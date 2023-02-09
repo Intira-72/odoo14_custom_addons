@@ -76,7 +76,7 @@ class EstateProperty(models.Model):
             if rec.state != 'canceled':
                 rec.state = 'sold'                
             else:
-                raise UserError('Sold properties cannot be conceled.')       
+                raise UserError('Sold properties cannot be canceled.')       
         return True
     
     def action_canceled(self):

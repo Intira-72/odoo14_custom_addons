@@ -43,7 +43,7 @@
       <field name="arch" type="xml">
          <form string="estate_property_form">
             <header>
-               <button string="Sold" name="action_sold" states="sold" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['sold', 'canceled'])]}"/>
+               <button string="Sold" name="action_sold" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['sold', 'canceled'])]}"/>
                <button string="Cancel" name="action_canceled" type="object" attrs="{'invisible': [('state', 'in', ['sold', 'canceled'])]}" />
                <field name="state" widget="statusbar" statusbar_visible="new,received,accepted,sold"/>
             </header>
@@ -77,15 +77,15 @@
                            <field name="facades" />
                            <field name="garage" />
                            <field name="garden" />
-                           <field name="garden_area" />
-                           <field name="garden_orientation" />
+                           <field name="garden_area" attrs="{'invisible': [('garden', '=', False)]}" />
+                           <field name="garden_orientation" attrs="{'invisible': [('garden', '=', False)]}" />
                            <field name="total_area" />
                         </group>
                      </group>
                   </page>
                   <page name="property_offer" string="Offers">
                      <group>
-                        <field name="offer_ids"  nolabel="1" />
+                        <field name="offer_ids"  nolabel="1" attrs="{'readonly': [('state', 'in', ['sold', 'accepted', 'canceled'])]}" />
                      </group>
                   </page>
                   <page name="other_info" string="Other Info">
