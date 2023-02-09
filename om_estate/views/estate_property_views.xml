@@ -25,14 +25,18 @@
       <field name="name">estate.property.view.tree</field>
       <field name="model">estate.property</field>
       <field name="arch" type="xml">
-         <tree string="estate_property_tree">
+         <tree string="estate_property_tree"
+         decoration-success="state=='received' or state=='accepted'"
+         decoration-bf="state=='accepted'"
+         decoration-muted="state=='sold'">
+            <field name="state" invisible="1"/>
             <field name="name" string="Title"/>
             <field name="postcode"/>
             <field name="bedrooms"/>
             <field name="living_area"/>
             <field name="expected_price"/>
             <field name="selling_price"/>
-            <field name="date_availability"/>
+            <field name="date_availability" optional="hide"/>
          </tree>
       </field>
    </record>
@@ -85,7 +89,7 @@
                   </page>
                   <page name="property_offer" string="Offers">
                      <group>
-                        <field name="offer_ids"  nolabel="1" attrs="{'readonly': [('state', 'in', ['sold', 'accepted', 'canceled'])]}" />
+                        <field name="offer_ids" nolabel="1" attrs="{'readonly': [('state', 'in', ['sold', 'accepted', 'canceled'])]}" />
                      </group>
                   </page>
                   <page name="other_info" string="Other Info">
