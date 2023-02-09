@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import fields, models, api
 
 
 class EstatePropertyTag(models.Model):
@@ -7,3 +7,6 @@ class EstatePropertyTag(models.Model):
     _order = "name desc"
 
     name = fields.Char(required=True)
+    color = fields.Integer(default=lambda self: self.env.id + 1)
+
+    

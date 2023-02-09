@@ -51,12 +51,13 @@
                <div>
                   <h1><field name="name" /></h1>
                </div>
-               <group>                                    
-                  <field name="tag_ids" widget="many2many_tags" nolabel="1" />
+               <group>   
+                  <field name="color" invisible="1"/>                              
+                  <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" nolabel="1" />
                </group>
                <group>
                   <group>
-                     <field name="property_type_id" />
+                     <field name="property_type_id" options="{'no_create_edit': True, 'no_create': True}" />
                      <field name="postcode" />
                      <field name="date_availability" />
                   </group>
