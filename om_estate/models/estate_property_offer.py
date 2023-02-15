@@ -1,6 +1,6 @@
 from odoo import fields, models, api, _
+from odoo.exceptions import UserError
 from datetime import datetime, timedelta
-from odoo.exceptions import ValidationError
 
 
 class EstatePropertyOffer(models.Model):
@@ -59,6 +59,16 @@ class EstatePropertyOffer(models.Model):
             selling = (rec.property_id.expected_price * 90) / 100
 
             if rec.price < selling and rec.status == 'accepted':
-                raise ValidationError(f"The selling price must be greater than 90% of the expected price.")
+                raise UserError(f"The selling price must be greater than 90% of the expected price.")
             
         return True
+    
+    @api.model
+    def create(self, vals_list):  
+        p_id = self.env['estate.property'].browse(vals_list['property_id'])
+        if p_id.best_price > vals_list['price']:
+            raise UserError(f"The offer must be higher than {p_id.best_price:,.2f}.")                
+        else:
+            p_id.state = 'received'
+            return super().create(vals_list)
+        
