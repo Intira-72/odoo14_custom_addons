@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_stock_packing,stock.packing,model_stock_packing,base.group_user,1,1,1,1
+access_stock_packing_teams,stock.packing.teams,model_stock_packing_teams,base.group_user,1,1,1,1
+access_stock_packing_employee,stock.packing.employee,model_stock_packing_employee,base.group_user,1,1,1,1

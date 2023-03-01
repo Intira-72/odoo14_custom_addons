@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="stock_packing_view_tree" model="ir.ui.view">
+            <field name="name">stock.packing</field>
+            <field name="model">stock.packing</field>
+            <field name="arch" type="xml">
+                <tree>                    
+                    <field name="name"/>
+                    <field name="create_date"/>
+                </tree>
+            </field>
+        </record>        
+
+        <record id="action_stock_packing" model="ir.actions.act_window">
+            <field name="name">Packings Management</field>
+            <field name="res_model">stock.packing</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>    
+</odoo>

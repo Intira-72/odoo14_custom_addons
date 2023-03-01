@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <menuitem id="packing_menus_root" name="Packings"/>
+    <menuitem
+        id="packings_menu"
+        name="Packings"
+        parent="packing_menus_root"
+    />
+    <menuitem
+        id="stock_packing_menu"
+        name="Packings"
+        action="action_stock_packing"
+        parent="packings_menu"
+    />
+    <menuitem
+        id="stock_packing_teams_menu"
+        name="Packing Teams"
+        action="action_stock_packing_teams"
+        parent="packings_menu"
+    />
+</odoo>
