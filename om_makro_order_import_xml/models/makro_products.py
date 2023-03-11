@@ -34,10 +34,17 @@ class MatchingProducts(models.Model):
             record.categ_name = record.categ_id.name
 
 
+class ProductBrand(models.Model):
+    _name = "product.template.brand"
+
+    name = fields.Char("name")
+    product_tmpl_id = fields.One2many("product.template", 'brand_id')
+
+
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
-    brand = fields.Char("Brand")
+    brand_id = fields.Many2one("product.template.brand")
 
 
     

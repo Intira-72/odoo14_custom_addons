@@ -18,7 +18,7 @@ class RequisitionReportXLSX(models.AbstractModel):
                 product_lists.append({'id': order.product_id.id,
                                     'name': {
                                         'short_name': m_info.categ_name if m_info.categ_name else "-",
-                                        'brand': order.product_id.brand if order.product_id.brand else "-",
+                                        'brand': order.product_id.brand_id.name if order.product_id.brand_id else "-",
                                         'series': f"{m_info.default_code}{ product_attr }" if m_info.default_code else "-",
                                     }})
 

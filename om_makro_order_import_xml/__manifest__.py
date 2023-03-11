@@ -6,8 +6,8 @@
     'author': "Dev",
     'website': "",
     'category': 'Sales',
-    'version': '0.6',
-    'depends': ['base', 'sale'],
+    'version': '0.7',
+    'depends': ['base', 'sale', 'product'],
     'data': [
         'security/ir.model.access.csv',
         'views/makro_orders_views.xml',

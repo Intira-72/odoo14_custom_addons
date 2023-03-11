@@ -7,5 +7,6 @@ access_om_makro_order_import_xml_makro_products_maching_line,om_makro_order_impo
 access_makro_orders_wizard,makro_orders.wizard,model_makro_orders_wizard,base.group_user,1,1,1,1
 access_makro_location_zone,makro_.location_zoned,model_makro_location_zone,base.group_user,1,1,1,1
 access_makro_requisition,makro_.requisition,model_makro_requisition,base.group_user,1,1,1,1
+access_product_template_brand,product.template.brand,model_product_template_brand,base.group_user,1,1,1,1
 access_report_om_makro_order_import_xml_report_requisition_xlsx,report.om_makro_order_import_xml.report_requisition_xlsx,model_report_om_makro_order_import_xml_report_requisition_xlsx,base.group_user,1,1,1,1
 
