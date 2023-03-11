@@ -21,11 +21,23 @@ class MatchingProducts(models.Model):
     _name = 'om_makro_order_import_xml.makro_products_maching_line'
     _description = 'om_makro_order_import_xml.makro_products_maching_line'
 
-    short_name = fields.Char("Short Name")
-    brand = fields.Char("Brand")
-    series = fields.Char("Model")
     m_product_id = fields.Many2one('om_makro_order_import_xml.makro_products')
     product_id = fields.Many2one('product.product', required=True)
+    categ_id = fields.Many2one('product.category', related='product_id.categ_id')
+    default_code = fields.Char('product.template', related='product_id.default_code')
+    categ_name = fields.Char('Category',compute='_compute_categ_name',)
+
+
+    @api.depends('product_id')
+    def _compute_categ_name(self):
+        for record in self:
+            record.categ_name = record.categ_id.name
+
+
+class ProductTemplate(models.Model):
+    _inherit = 'product.template'
+
+    brand = fields.Char("Brand")
 
 
     

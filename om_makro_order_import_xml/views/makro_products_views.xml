@@ -47,9 +47,7 @@
                                 <field name="product_ids" widget="one2many">
                                     <tree editable="bottom">
                                         <field name="product_id" />
-                                        <field name="short_name" width="150px" />
-                                        <field name="brand" width="150px" />
-                                        <field name="series" width="150px" />
+                                        <field name="categ_name" />
                                     </tree>
                                 </field>
                             </page>

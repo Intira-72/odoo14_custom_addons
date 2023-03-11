@@ -13,11 +13,13 @@ class RequisitionReportXLSX(models.AbstractModel):
             if order.product_id.id not in [i['id'] for i in product_lists]:
                 m_info = self.env['om_makro_order_import_xml.makro_products_maching_line'].search([('product_id', '=', order.product_id.id)], order='create_date desc', limit=1)
 
+                product_attr = f" ({order.product_id.product_template_attribute_value_ids.name})" if order.product_id.product_template_attribute_value_ids else ""
+
                 product_lists.append({'id': order.product_id.id,
                                     'name': {
-                                        'short_name': m_info.short_name if m_info.short_name else "",
-                                        'brand': m_info.brand if m_info.brand else "",
-                                        'series': m_info.series if m_info.series else "",
+                                        'short_name': m_info.categ_name if m_info.categ_name else "-",
+                                        'brand': order.product_id.brand if order.product_id.brand else "-",
+                                        'series': f"{m_info.default_code}{ product_attr }" if m_info.default_code else "-",
                                     }})
 
         data = {

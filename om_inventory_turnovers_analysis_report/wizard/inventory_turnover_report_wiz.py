@@ -25,15 +25,14 @@ class InventoryTurnoverReportWizard(models.TransientModel):
                                                         ('location_dest_id', 'child_of', self.warehouse_ids.view_location_id.id),
                                                         ('date', '<=', self.start_date),
                                                         ('state', '=', 'done')])
-        
-        
-
-        return product_in - product_out
+        print(opening_stock[0].availability)
+        return {}
         
 
     def btn_inventory_turnover_export_pdf(self):
         context = []
         for i in self.product_ids:
+            
             context.append({
                 'product_name': i.name,
                 'opening_stock': self._at_open_date(i.id)
