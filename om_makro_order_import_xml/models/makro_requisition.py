@@ -56,6 +56,8 @@ class MakroRequisition(models.Model):
                     res.requisition_id = self.id
         except IndexError:
             pass
+        except KeyError:
+            pass
         
         return super().write(vals)
 
