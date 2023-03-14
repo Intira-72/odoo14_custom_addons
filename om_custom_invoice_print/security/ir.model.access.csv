@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_om_custom_invoice_print_om_custom_invoice_print,om_custom_invoice_print.om_custom_invoice_print,model_om_custom_invoice_print_om_custom_invoice_print,base.group_user,1,1,1,1
+access_multiple_invoice_create,multiple.invoice.create,model_multiple_invoice_create,base.group_user,1,1,1,1

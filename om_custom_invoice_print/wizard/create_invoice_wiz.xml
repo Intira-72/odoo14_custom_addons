@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="create_invoice_wiz_form" model="ir.ui.view">
+            <field name="name">create.invoice.wiz.form</field>
+            <field name="model">multiple.invoice.create</field>
+            <field name="arch" type="xml">
+                <form>
+                    <p>
+                        Are you sure you want to create all invoice by orders ?
+                    </p>
+                    <footer>
+                        <button name="create_invoice_by_order" string="Confirm" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>   
+
+        <act_window name="Create Invoice By SO"
+            id="action_create_invoice_by_so"
+            res_model="multiple.invoice.create"
+            binding_model="sale.order"
+            binding_views="list"
+            view_mode="form"
+            target="new"
+        />
+    </data>       
+</odoo>
