@@ -1,5 +1,6 @@
 from odoo import models, fields, api
 from datetime import datetime, timedelta
+from odoo.exceptions import UserError
 
 DATETIME_NOW = datetime.now()
 
@@ -23,25 +24,54 @@ class MakroRequisition(models.Model):
         except IndexError:
             return DATETIME_NOW.strftime("%y%m") + "001"
         else:            
-            return DATETIME_NOW.strftime("%y%m") + new_no
-
+            return DATETIME_NOW.strftime("%y%m") + new_no      
+    
 
     name = fields.Char("No.", default=get_name_default, readonly=True)
     delivery_date = fields.Datetime("Scheduled Date", required=True, default=fields.Datetime.now)
     zone_id = fields.Many2one('makro.location_zone', string="Zone", default=1, required=True)
     order_ids = fields.Many2many('sale.order', 'makro_requisition_sale_order_rel', 'order_id', 'requisition_id', string="Order Line")
+    product_ids = fields.Many2many('product.product', string="Products")
+    state = fields.Selection(
+        selection=[('draft', 'Draft'), ('done', 'Confirmed'), ('canceled', 'Canceled')],
+        string='Status',
+        default='draft'
+    )
     active = fields.Boolean(default=True)
 
-    def show_orders(self):
+    
+    def _get_partner_ids(self):
         partner_ids = self.env['om_makro_order_import_xml.makro_store_loc'].search([('zone_id', "=", self.zone_id.id)])
-        orders = self.env['sale.order'].search([('commitment_date', "=", self.delivery_date.date()),
-                                                ('partner_id', "in", [partner.contact_id.id for partner in partner_ids]),
-                                                ('requisition_id', '=', False),
-                                                ('state', '=', 'sale')], order='user_id desc')  
+        return partner_ids
+    
+    def _get_sale_order_ids(self, partner_ids):
+        sale_order_ids = self.env['sale.order'].search([('commitment_date', "=", self.delivery_date.date()),
+                                        ('partner_id', "in", [partner.contact_id.id for partner in partner_ids]),
+                                        ('requisition_id', '=', False),
+                                        ('state', '=', 'sale')], order='user_id desc')
+        return sale_order_ids
+        
+    
+    def show_orders(self):
+        for order in self.order_ids:
+            order.requisition_id = False
 
-        for o in orders:
-            self.order_ids = [(4, o.id)]
-            o.requisition_id = self.id
+        partner_ids = self._get_partner_ids()
+        orders = self._get_sale_order_ids(partner_ids)  
+        
+        if self.product_ids:    
+            order_lines = self.env['sale.order.line'].search([('order_id', 'in', orders.mapped('id')),
+                                                            ('product_id', 'in', self.product_ids.mapped('id'))])
+            
+            self.order_ids = [(6, 0, order_lines.mapped('order_id')._ids)]
+           
+            for order in self.order_ids:
+                order.requisition_id = self.id            
+        else:            
+            self.order_ids = [(6, 0, orders._ids)]
+
+            for order in orders:
+                order.requisition_id = self.id
 
 
     def write(self, vals):      
@@ -68,7 +98,36 @@ class MakroRequisition(models.Model):
         report_obj = self.env.ref('om_makro_order_import_xml.report_requisition_xlsx')
         report_obj.report_file = file_name + ".xlsx"
         return report_obj.report_action(self)
-     
+
+    
+    @api.onchange('delivery_date', 'zone_id')
+    def _onchange_product_ids(self):
+        partner_ids = self._get_partner_ids()
+        orders = self._get_sale_order_ids(partner_ids)
+
+        for record in self:
+            record.product_ids = self.env['sale.order.line'].search([('order_id', 'in', orders.mapped('id'))]).mapped('product_id')
+
+
+    def action_done(self):
+        for record in self:
+            record.state = 'done'
+
+    def action_canceled(self):
+        for record in self:
+            record.state = 'canceled'    
+
+    def action_set_draft(self):
+        for record in self:
+            record.state = 'draft'
+    
+    def unlink(self):
+        for rec in self:
+            if rec.state not in ['draft']:
+                raise UserError(f"You can not delete a {rec.state} status. You must first cancel and set draft it.")
+            else:
+                return super().unlink()
+    
 
     class SaleOrder(models.Model):
         _inherit = 'sale.order'

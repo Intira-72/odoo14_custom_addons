@@ -9,6 +9,7 @@
                 <field name="delivery_date" width="450px"/>
                 <field name="zone_id" width="450px"/>
                 <field name="create_uid"/>
+                <field name="state" widget="badge" decoration-success="state == 'done'" decoration-info="state == 'draft'" />
             </tree>
         </field>
     </record>
@@ -18,16 +19,22 @@
         <field name="model">makro.requisition</field>
         <field name="arch" type="xml">
             <form string="requisition_form">
+                <header>
+                    <button string="Set to Draft" name="action_set_draft" type="object" attrs="{'invisible': [('state', 'in', ['done', 'draft'])]}"/>
+                    <button string="Confirm" name="action_done" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['done', 'canceled'])]}"/>
+                    <button string="Cancel" name="action_canceled" type="object" attrs="{'invisible': [('state', 'in', ['draft', 'canceled'])]}" />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done,canceled"/>
+                </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box" modifiers="{}">
-                        <button type="object" name="show_orders" class="oe_stat_button" icon="fa-server">
+                        <button type="object" name="show_orders" class="oe_stat_button" icon="fa-server" attrs="{'invisible': [('state', 'in', ['done', 'canceled'])]}">
                             <div class="o_field_widget o_stat_info" modifiers="{}">
                                 <span class="o_stat_text" modifiers="{}">
                                     Show
                                 </span>
                             </div>
                         </button>
-                        <button type="object" name="print_quisition" class="oe_stat_button" icon="fa-print">
+                        <button type="object" name="print_quisition" class="oe_stat_button" icon="fa-print" attrs="{'invisible': [('state', 'in', ['draft', 'canceled'])]}">
                             <div class="o_field_widget o_stat_info" modifiers="{}">
                                 <span class="o_stat_text" modifiers="{}">
                                     Print
@@ -43,17 +50,25 @@
                     </div>
                     <group>
                         <group>
-                            <field name="delivery_date" />
-                            <field name="zone_id" string="MK-" />
+                            <field name="delivery_date" attrs="{'readonly': [('state', 'in', ['done', 'canceled'])]}"/>
+                            <field name="zone_id" string="MK-" attrs="{'readonly': [('state', 'in', ['done', 'canceled'])]}"/>
                         </group>
                         <group>
                             <field name="create_uid" readonly="1" />
                             <field name="create_date" readonly="1" />
                         </group>
                     </group>
+                    <group>
+                        <group>
+                            <field name="product_ids" 
+                            widget="many2many_tags"
+                            attrs="{'readonly': [('state', 'in', ['done', 'canceled'])]}"
+                             />
+                        </group>
+                    </group>
                     <notebook>
-                        <page name="Order Line" string="Order Line">
-                            <field name="order_ids">
+                        <page name="sale_order" string="Orders">
+                            <field name="order_ids" attrs="{'readonly': [('state', 'in', ['done', 'canceled'])]}">
                                 <tree>
                                     <field name="partner_id" readonly="1" width="250px" />
                                     <field name="client_order_ref" width="250px" />
