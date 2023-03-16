@@ -16,6 +16,7 @@ class MultipleInvoiceCreate(models.TransientModel):
                     'invoice_payment_term_id': sale_order.payment_term_id,
                     'move_type': 'out_invoice',
                     'invoice_origin': sale_order.name,
+                    'ref': sale_order.client_order_ref,
                     'invoice_line_ids': [(0, 0,
                         {'product_id': i.product_id,
                          'quantity': i.qty_to_invoice,

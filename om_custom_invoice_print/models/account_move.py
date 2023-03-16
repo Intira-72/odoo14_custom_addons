@@ -62,8 +62,3 @@ class AccountMoveInherit(models.Model):
 
         return next_inv
 
-
-    # def custom_inv_print(self):
-    #     print(self)
-        # return self.env.ref('om_custom_invoice_print.action_custom_inv_print').report_action(None)
-

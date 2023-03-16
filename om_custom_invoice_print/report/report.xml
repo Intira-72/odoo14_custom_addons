@@ -18,7 +18,7 @@
         </record>
 
         <record id="action_custom_inv_print" model="ir.actions.report">
-            <field name="name">Invoices (Custom)</field>
+            <field name="name">Invoices - MK</field>
             <field name="model">account.move</field>
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">om_custom_invoice_print.custom_invoices_template</field>
