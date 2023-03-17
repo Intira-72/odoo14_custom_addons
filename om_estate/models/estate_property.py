@@ -60,7 +60,7 @@ class EstateProperty(models.Model):
     def _compute_best_price(self):
         for rec in self:
             try:
-                rec.best_price = max(self.offer_ids.mapped('price'))
+                rec.best_price = max(rec.offer_ids.mapped('price'))
             except ValueError:
                 rec.best_price = 0
 
