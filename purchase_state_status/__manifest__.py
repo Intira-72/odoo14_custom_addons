@@ -5,7 +5,7 @@
     'author': "My Company",
     'website': "http://www.yourcompany.com",
     'category': 'Purchase',
-    'version': '0.1',
+    'version': '0.2',
     'depends': ['base', 'purchase'],
     'data': [
         # 'security/ir.model.access.csv',
