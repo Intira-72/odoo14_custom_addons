@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="custom_inv_format" model="report.paperformat">
+            <field name="name">Invoices Custom Format</field>
+            <field name="default" eval="False"/>
+            <field name="format">custom</field>
+            <field name="page_height">278</field>
+            <field name="page_width">220</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">37</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">1</field>
+            <!-- <field name="header_spacing">3</field> -->
+            <field name="header_line" eval="False"/>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="action_inventory_turnover_pdf" model="ir.actions.report">
+            <field name="name">Inventory Turnover Report</field>
+            <field name="model">inventory.turnover.report</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">om_inventory_turnovers_analysis_report.inventory_turnover_pdf_template</field>
+            <field name="report_file">om_inventory_turnovers_analysis_report.inventory_turnover_pdf_template</field>
+            <field name="binding_type">report</field>
+            <field name="print_report_name">'%s Inventory Turnover Report' % (object.create_date)</field>
+        </record>    
+    </data>   
+</odoo>

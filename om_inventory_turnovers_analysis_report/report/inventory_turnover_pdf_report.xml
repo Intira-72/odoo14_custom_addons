@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="inventory_turnover_pdf_template">
+        <!-- <link href="https://fonts.googleapis.com/css?family=Kanit+Regular" rel="stylesheet"/> -->
+        <link href="styles.css" rel="stylesheet"/>
+        <t t-call="web.html_container"> 
+            <t t-call="web.external_layout">                         
+                <div class="page" style="font-family: 'Angsana New'; font-size: 20px; line-height: 1.3;">  
+                    <div class="text-center">
+                        <h1>Inventory Turnover Analysis Report</h1>
+                    </div>                  
+                    <br/>
+                    <table style="font-size: 24px;" class="table table-sm table-borderless">
+                        <thead>
+                            <tr class="text-left">
+                                <th style="width:  15%">
+                                    <strong>Warehouse :</strong>
+                                </th>
+                                <th style="width:  35%">
+                                    <strong>Catetory :</strong>
+                                </th>
+                                <th style="width:  25%; background-color: none;">
+                                    <strong>Start Date :</strong>
+                                </th>
+                                <th style="width:  25%">
+                                    <strong>End Date :</strong>
+                                </th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>                                    
+                            <tr class="text-left">
+                                <td>
+                                    <span t-esc="warehouse"/>
+                                </td>
+                                <td>
+                                    <span t-esc="category"/>
+                                </td>
+                                <td>
+                                    <span t-esc="from_date"/>
+                                </td>
+                                <td>
+                                    <span t-esc="to_date"/>
+                                </td>                                
+                            </tr>                                    
+                        </tbody>
+                    </table>
+                    <div style="font-size: 12px; line-height: 0.5;">
+                        <p>* Inventory Turnovers Ratio (อัตราหมุนเวียนสินค้าคงเหลือ)</p>
+                        <p>* Average Inventory Period (ระยะเวลาขายสินค้าเฉลี่ย)</p>
+                    </div>                    
+                    <table class="table table-sm table-bordered">
+                        <thead class="thead-dark" style="font-size: 22px;">
+                            <tr class="text-center">
+                                <th class="text-left" style="width:  30%">
+                                    <strong>Product</strong>
+                                </th>
+                                <th>
+                                    <strong>Opening</strong>
+                                </th>
+                                <th>
+                                    <strong>Closing</strong>
+                                </th>    
+                                <th>
+                                    <strong>AVG</strong>
+                                </th>  
+                                <th style="width:  10%">
+                                    <strong>Sales</strong>
+                                </th>
+                                <th style="width:  10%">
+                                    <strong>Purchases</strong>
+                                </th>  
+                                <th>
+                                    <strong>Turnover Ratio</strong>
+                                </th> 
+                                <th>
+                                    <strong>AVG Period</strong>
+                                </th>                       
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="turnover_lists" t-as="t_list">
+                                <tr class="text-center">
+                                    <td class="text-left">
+                                        <span t-esc="t_list['product_id']"/>
+                                    </td>
+                                    <td class="align-middle">
+                                        <span t-esc="t_list['initial']"/>
+                                    </td>
+                                    <td class="align-middle">
+                                        <span t-esc="t_list['balance']"/>
+                                    </td>   
+                                    <td class="align-middle"> 
+                                        <span t-esc="t_list['stock_avg']"/>
+                                    </td>   
+                                    <td class="align-middle">
+                                        <span t-esc="t_list['sale']"/>
+                                    </td>   
+                                    <td class="align-middle">
+                                        <span t-esc="t_list['purchase']"/>
+                                    </td>
+                                    <td class="align-middle">
+                                        <span t-esc="t_list['inv_turnover']"/>
+                                    </td>   
+                                    <td class="align-middle">
+                                        <span t-esc="t_list['avg_inventory_period']"/>
+                                    </td>                      
+                                </tr>                                
+                            </t>                                                            
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>   
+</odoo>
