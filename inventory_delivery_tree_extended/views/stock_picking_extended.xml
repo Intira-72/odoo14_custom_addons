@@ -7,7 +7,7 @@
       <field name="inherit_id" ref="stock.view_picking_internal_search" />
       <field name="arch" type="xml">
         <xpath expr="//search//field[@name='name']" position="before">
-          <field name="customer_ref" string="Custom Reference" />
+          <field name="customer_ref" string="PO No." />
           <group string="Group By">
             <filter name="store" string="Shop" context="{'group_by' : 'store'}" />
           </group>
@@ -23,8 +23,7 @@
       <field name="inherit_id" ref="stock.vpicktree" />
       <field name="arch" type="xml">
         <xpath expr="//tree//field[@name='name']" position="after">
-          <field name="customer_ref" optional="show" />
-          <field name="store" attrs="{'invisible': [('picking_type_id','in',(1, 3, 4, 5, 6))]}" />          
+          <field name="customer_ref" optional="show"/>
         </xpath>
       </field>
     </record>
@@ -37,8 +36,7 @@
       <field name="inherit_id" ref="stock.view_picking_form" />
       <field name="arch" type="xml">
         <xpath expr="//group//field[@name='origin']" position="after">
-          <field name="customer_ref" attrs="{'invisible': [('picking_type_id','=',1)]}"/>
-          <field name="store" attrs="{'invisible': [('picking_type_id','!=',2)]}" />
+          <field name="customer_ref" />
         </xpath>
       </field>
     </record>

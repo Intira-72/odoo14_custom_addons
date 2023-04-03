@@ -7,17 +7,16 @@ class StockPicking(models.Model):
     _inherit = 'stock.picking'
     _order = 'name desc'
 
-    customer_ref = fields.Char("Custom Reference", compute="_compute_vendor_ref", search="_search_ref")
-    store = fields.Many2one('store.list', compute="_compute_vendor_ref", readonly=False)
+    customer_ref = fields.Char("PO No.", compute="_compute_vendor_ref", search="_search_ref")
 
 
     @api.depends('store')
     def _compute_vendor_ref(self):
         for ori in self:
-            if ori.picking_type_id.id == 1:
+            if ori.picking_type_id.name == "Receipts":
                 v_ref = self.env['purchase.order'].search([('name', '=', ori.group_id.name)])
                 ori.customer_ref = v_ref.partner_ref
-            elif ori.picking_type_id.id == 2:
+            elif ori.picking_type_id.name == "Delivery Orders":
                 cus_ref = self.env['sale.order'].search([('name', '=', ori.group_id.name)])
                 ori.customer_ref = cus_ref.client_order_ref
                 ori.store = cus_ref.store_id.id
