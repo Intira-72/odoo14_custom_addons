@@ -12,6 +12,7 @@ class MakroOrders(models.Model):
     name = fields.Char("File Name")
     buyer_id = fields.Many2one('om_makro_order_import_xml.makro_buyer')
     order_ids = fields.One2many('sale.order', 'm_data_file', string="Sale Order", readonly=True)
+    active = fields.Binary(default=True)
 
     
     def _check_confirm_in_order_lists(self, order_lists):
