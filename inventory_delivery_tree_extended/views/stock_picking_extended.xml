@@ -8,9 +8,6 @@
       <field name="arch" type="xml">
         <xpath expr="//search//field[@name='name']" position="before">
           <field name="customer_ref" string="PO No." />
-          <group string="Group By">
-            <filter name="store" string="Shop" context="{'group_by' : 'store'}" />
-          </group>
         </xpath>
       </field>
     </record>

@@ -8,7 +8,7 @@ class StockPicking(models.Model):
     _order = 'name desc'
 
     customer_ref = fields.Char("PO No.", compute="_compute_vendor_ref", search="_search_ref")
-
+    store = fields.Many2one('store.list', compute="_compute_vendor_ref", readonly=False)
 
     @api.depends('store')
     def _compute_vendor_ref(self):
@@ -26,12 +26,13 @@ class StockPicking(models.Model):
     
     def _search_ref(self, operator, value):   
         picking_type = self.env.context.get('active_id', False)
+        type_name = self.env['stock.picking.type'].browse(picking_type)
 
         ids = []
         
-        if picking_type == 1:
+        if type_name.name == "Receipts":
             rtn = self.env['purchase.order'].search([('partner_ref', 'ilike', value)])
-        elif picking_type == 2:
+        elif type_name.name == "Delivery Orders":
             rtn = self.env['sale.order'].search([('client_order_ref', 'ilike', value)])
 
         for r in rtn:
