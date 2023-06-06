@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="crm_claim_view_tree" model="ir.ui.view">
+            <field name="name">crm.claim.views</field>
+            <field name="model">crm.claim</field>
+            <field name="arch" type="xml">
+                <tree string="CRM Claim">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="crm_claim_view_form" model="ir.ui.view">
+            <field name="name">crm.claim.view.form</field>
+            <field name="model">crm.claim</field>
+            <field name="arch" type="xml">
+                <form string="CRM Claim Form">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="new,waiting_back,in_process,in_transit,done,cancel"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="subject"/>
+                                <field name="partner_id"/>
+                            </group>
+                            <group>
+                                <field name="create_date"/>
+                                <field name="write_date"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="claim_details" string="Details">
+                                <group>
+                                    <group name="claim_contact" string="Contact">
+                                        <field name="claimant"/>
+                                        <field name="phone_num"/>
+                                    </group>
+                                    <group name="claim_order_no" string="Order">
+                                        <field name="order_id"/>
+                                        <field name="order_date"/>
+                                    </group>
+                                </group>                                
+                            </page>
+                            <page name="claim_follow_up" string="Follow Up">
+                                
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="om_crm_claim_action" model="ir.actions.act_window">
+            <field name="name">Services and Claim</field>
+            <field name="res_model">crm.claim</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>   
+</odoo>

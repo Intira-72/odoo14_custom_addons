@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+   <menuitem id="crm_claim_menus_root" name="Services"/>
+   <menuitem
+    id="crm_claim_menu"
+    name="Services"
+    parent="crm_claim_menus_root"
+    action="om_crm_claim_action"
+   />
+
+   <menuitem
+    id="crm_claim_config_menu"
+    name="Configurations"
+    parent="crm_claim_menus_root"
+   />
+
+  <menuitem
+    id="services_type_menu"
+    name="Service Types"
+    parent="crm_claim_config_menu"
+    
+  />
+
+  <!-- <menuitem
+    id="estate_properites_type_menu"
+    name="Property Type"
+    parent="estate_settings_menu"
+    action="estate_property_type_action"
+  />
+
+  <menuitem
+    id="estate_properites_tag_menu"
+    name="Property Tags"
+    parent="estate_settings_menu"
+    action="estate_property_tag_action"
+  /> -->
+</odoo>

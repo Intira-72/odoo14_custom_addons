@@ -2,11 +2,11 @@
 {
     'name': "Makro Order Import (XML)",
     'summary': """Upload data of sale orders list from Makro (xml file)""",
-    'description': """change process generate order list in Requisition""",
+    'description': """Check Sale Order and order line for create new order line""",
     'author': "Dev",
     'website': "",
     'category': 'Sales',
-    'version': '0.8',
+    'version': '0.9',
     'depends': ['base', 'sale', 'product'],
     'data': [
         'security/ir.model.access.csv',
