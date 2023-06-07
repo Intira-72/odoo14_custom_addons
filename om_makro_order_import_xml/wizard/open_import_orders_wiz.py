@@ -103,7 +103,7 @@ class MakroImportOrdersWizard(models.TransientModel):
     def _upload_list(self, order_ids, buyer_id):
         rtn = self.env['om_makro_order_import_xml.makro_orders']
         rtn.create({'name': self.file_name,
-                    'buyer_id': 2,
+                    'buyer_id': buyer_id,
                     'order_ids': order_ids})
         return rtn.id     
 
