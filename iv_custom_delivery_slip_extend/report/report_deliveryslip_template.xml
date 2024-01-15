@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template inherit_id="stock.report_delivery_document" id="report_deliveryslip_extend">
+            <xpath expr="//div[@name='div_sched_date']" position="after">
+                <div t-if="o.location_dest_id" class="col-auto" name="div_dest_loc">
+                    <strong>Destination:</strong>
+                    <p t-field="o.location_dest_id"/>
+                </div>
+            </xpath>
+
+            <xpath expr="//table[@name='stock_move_table']" position="replace">
+                <table class="table table-sm table-bordered mt-1" t-if="o.state!='done'" name="stock_move_table">
+                    <thead class="thead-light">
+                        <tr class="text-center">
+                            <th name="th_sm_product"><strong>Product</strong></th>
+                            <th name="th_sm_dest_loc"><strong>To</strong></th>
+                            <th name="th_sm_quantity"><strong>Quantity</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="lines" t-value="o.move_lines.filtered(lambda x: x.product_uom_qty)"/>
+                        <tr t-foreach="lines" t-as="move" style="page-break-inside: avoid;">
+                            <td>
+                                <span t-field="move.product_id"/>
+                                <p t-if="move.description_picking != move.product_id.name">
+                                    <span t-field="move.description_picking"/>
+                                </p>
+                            </td>
+                            <td class="text-center" style="width: 10%;">
+                                <span t-field="move.move_line_ids[0].location_dest_id.name"/>
+                            </td>
+                            <td class="text-center" style="width: 15%;">
+                                <span t-field="move.product_uom_qty" t-options='{"widget": "integer", "precision": 0}'/>
+                                <span t-field="move.product_uom"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </xpath>
+
+            <xpath expr="//table[@name='stock_move_table']" position="after">
+                <table class="table table-sm table-bordered mt-5" t-if="o.state!='done'" name="stock_move_signature">
+                    <thead class="thead-light">
+                        <tr class="text-center">
+                            <th name="th_sm_issuer"><strong>Issuer (ผู้เบิกสินค้า)</strong></th>
+                            <th name="th_sm_shipper"><strong>Shipper (ผู้ส่งสินค้า)</strong></th>
+                            <th name="th_sm_receiver"><strong>Receiver (ผู้รับสินค้า)</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="page-break-inside: avoid;">
+                            <td style="height: 50px;"></td>
+                            <td style="height: 50px;"></td>
+                            <td style="height: 50px;"></td>
+                        </tr>
+                    </tbody>
+                </table>                
+            </xpath>
+    </template>
+</odoo>
