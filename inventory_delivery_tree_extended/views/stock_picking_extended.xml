@@ -35,6 +35,10 @@
         <xpath expr="//group//field[@name='origin']" position="after">
           <field name="customer_ref" />
         </xpath>
+
+        <xpath expr="//group//field[@name='owner_id']" position="replace">
+          <field name="owner_id" invisible="1"/>
+        </xpath>
       </field>
     </record>
   </data>
